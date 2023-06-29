@@ -1,40 +1,57 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { message } from "antd";
 
 export default function DoctorRegister() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
   console.log(formData);
   const handleOnChange = (e) => {
-    const {name ,value} = e.target
-    setFormData((prev)=> {
-        return {
-          ...prev,
-          [name] : value
-        }
-    })
-  }
-
-  const handleSubmit = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+  console.log(process.env.REACT_APP_SERVER_DOMAIN);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const {email,password,confirmPassword} = formData;
-    if(email && password && confirmPassword)
-    {
-       if(password===confirmPassword)
-       {
+    const { email, password, confirmPassword } = formData;
+    if (email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        try {
+          const res = await axios.post(
+            `${process.env.REACT_APP_SERVER_DOMAIN}/doctor_register`,
+            formData
+          );
+
+          if (res.data.success) {
+            message.success("Register Successfully!");
+          } else {
+            message.error(res.data.message);
+          }
+        } catch (error) {
+          console.log(error);
+          message.error("Something Went Wrong");
+        }
+        console.log(formData);
+        // console.log(data);
         alert("Successful");
-       }
-       else{
+      } else {
         alert("Password and confirmPassword are not equal");
-       }
-    }
-    else{
+      }
+    } else {
       alert("Please enter the requered detail!");
-    } 
-  }
+    }
+  };
 
   return (
     <>
@@ -46,7 +63,7 @@ export default function DoctorRegister() {
               className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
             >
               <img
-                className="w-8 h-8 mr-2"
+                className="w-9 h-8 mr-2"
                 src="./images/Common/curefast_logo.png"
                 alt="logo"
               />
@@ -55,9 +72,31 @@ export default function DoctorRegister() {
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Create and account
+                  Create an account
                 </h1>
-                <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit} >
+                <form
+                  className="space-y-4 md:space-y-6"
+                  action="#"
+                  onSubmit={handleSubmit}
+                >
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="name"
+                      name="name"
+                      id="name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="name"
+                      required
+                      value={formData.name}
+                      onChange={handleOnChange}
+                    />
+                  </div>
                   <div>
                     <label
                       htmlFor="email"
@@ -102,7 +141,7 @@ export default function DoctorRegister() {
                       Confirm password
                     </label>
                     <input
-                      type="confirmPassword"
+                      type="password"
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="••••••••"
@@ -139,7 +178,7 @@ export default function DoctorRegister() {
                   </div>
                   <button
                     type="submit"
-                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                   >
                     Create an account
                   </button>

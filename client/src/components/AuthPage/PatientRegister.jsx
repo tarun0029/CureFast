@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { message } from "antd";
 
 export default function PatientRegister() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -19,53 +21,35 @@ export default function PatientRegister() {
       };
     });
   };
-  // console.log(process.env.REACT_APP_SERVER_DOMAIN);
-  // const handleSubmit = async(e) => {
-  //   e.preventDefault();
-  //   const {email,password,confirmPassword} = formData;
-  //   if(email && password && confirmPassword)
-  //   {
-  //      if(password===confirmPassword)
-  //      {
-  //      const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/patient_register`,{
-  //       method : "POST",
-  //       headers : {
-  //         "content-type" : "application/json"
-  //       },
-  //       body : JSON.stringify(formData)
-  //      })
-
-  //      const data = await fetchData.json();
-  //      console.log(formData);
-  //      console.log(data);
-  //       alert("Successful");
-  //      }
-  //      else{
-  //       alert("Password and confirmPassword are not equal");
-  //      }
-  //   }
-  //   else{
-  //     alert("Please enter the requered detail!");
-  //   }
-  // }
-
+  console.log(process.env.REACT_APP_SERVER_DOMAIN);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    try {
-      const res = await axios.post(
-        "`${process.env.REACT_APP_SERVER_DOMAIN}`/patient_register",
-        formData
-      );
-      if (res.data.success) {
-        alert("Register Successfully!");
-        navigate("/login");
+    const { email, password, confirmPassword } = formData;
+    if (email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        try {
+          const res = await axios.post(
+            `${process.env.REACT_APP_SERVER_DOMAIN}/patient_register`,
+            formData
+          );
+
+          if (res.data.success) {
+            message.success("Register Successfully!");
+          } else {
+            message.error(res.data.message);
+          }
+        } catch (error) {
+          console.log(error);
+          message.error("Something Went Wrong");
+        }
+        console.log(formData);
+        // console.log(data);
+        alert("Successful");
       } else {
-        alert(res.data.message);
+        alert("Password and confirmPassword are not equal");
       }
-    } catch (error) {
-      console.log(error);
-      alert("Something Went Wrong");
+    } else {
+      alert("Please enter the requered detail!");
     }
   };
 
@@ -79,8 +63,8 @@ export default function PatientRegister() {
               className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
             >
               <img
-                className="w-8 h-8 mr-2"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+                className="w-9 h-8 mr-2"
+                src="./images/Common/curefast_logo.png"
                 alt="logo"
               />
               Patient Register
@@ -88,13 +72,31 @@ export default function PatientRegister() {
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Create and account
+                  Create an account
                 </h1>
                 <form
                   className="space-y-4 md:space-y-6"
                   action="#"
                   onSubmit={handleSubmit}
                 >
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="name"
+                      name="name"
+                      id="name"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="name"
+                      required
+                      value={formData.name}
+                      onChange={handleOnChange}
+                    />
+                  </div>
                   <div>
                     <label
                       htmlFor="email"
@@ -139,7 +141,7 @@ export default function PatientRegister() {
                       Confirm password
                     </label>
                     <input
-                      type="confirmPassword"
+                      type="password"
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="••••••••"
