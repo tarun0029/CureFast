@@ -32,7 +32,7 @@ export default function DoctortLogin() {
         localStorage.setItem("token", res.data.token);
         message.success("Login Successfully");
         console.log("login succesfully");
-        navigate("/");
+        navigate("/doctor/dashboard");
       } else {
         message.error(res.data.message);
       }

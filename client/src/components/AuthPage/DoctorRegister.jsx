@@ -35,6 +35,7 @@ export default function DoctorRegister() {
 
           if (res.data.success) {
             message.success("Register Successfully!");
+            navigate("/doctor_login");
           } else {
             message.error(res.data.message);
           }

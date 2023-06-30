@@ -21,6 +21,14 @@ const patientSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
+  firstName: {
+    type: String,
+    default: "",
+  },
+  lastName: {
+    type: String,
+    default: "",
+  },
 });
 
 const patientModel = mongoose.model("patients", patientSchema);
