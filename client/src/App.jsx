@@ -20,9 +20,13 @@ function App() {
       <Route path="/patient_register" element={<PatientRegister />} />
       <Route path="/doctor_login" element={<DoctorLogin />} />
       <Route path="/doctor_register" element={<DoctorRegister />} />
+      <Route path="/doctor/" element={<Layout />}>
+        {/* <Route index element={<Dashboard />} /> */}
+        <Route path="appointments" element={<Appointments />} />
+        <Route path="profilesetting" element={<ProfileSetting />} />
 
-      {/* <Route path="/doctor/appointments" element={<Appointments />} />
-      <Route path="/doctor/profilesetting" element={<ProfileSetting />} />  */}
+        <Route path="dashboard" element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 }

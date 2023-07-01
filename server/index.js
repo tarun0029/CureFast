@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
+const connectDB = require("./config/db");
 
 const app = express();   
 
@@ -10,35 +11,8 @@ app.use(express.json({ limit : "10mb"}))
 
 const PORT = process.env.PORT || 5000;
 
-// mongodb connection 
-console.log(process.env.CONNECTION_URL)
-mongoose.set("strictQuery",false);
-mongoose.connect(process.env.CONNECTION_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-    .then(() => console.log('Connected to the database'))
-    .catch((error) => console.error('Database connection error:', error));
-
-//  Schema 
-
-// const patientRegisterSchema = mongoose.Schema({
-//     name : String,
-//     email: {
-//         type : String,
-//         unique : true,
-//     },
-//     password: String,
-//     confirmPassword: String,
-// })
-
-// const patientRegisterModel = mongoose.model("patientRegister",patientRegisterSchema);
-
-
-
-
-
-// api
+//mongodb connection
+connectDB();
 
 
 // routes
