@@ -1,8 +1,10 @@
 const express = require("express");
 const {
     doctorRegisterController,
-    doctorLoginController
+    doctorLoginController,
+    authController,
 }  = require("../controllers/doctorController.js")
+const authMiddleware = require("../middlewares/authMiddleware");
 
 //router object
 const router = express.Router();
@@ -15,5 +17,8 @@ router.post("/doctor_login", doctorLoginController);
 
 //REGISTER || POST
 router.post("/doctor_register", doctorRegisterController);
+
+//Auth || POST
+router.post("/getUserData", authMiddleware, authController);
 
 module.exports = router;
