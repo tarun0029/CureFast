@@ -1,7 +1,6 @@
 const doctorModel = require("../models/doctorModels");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-//const jwt = require("jsonwebtoken");
 
 //const moment = require("moment");
 
@@ -48,7 +47,7 @@ const doctorLoginController = async (req, res) => {
           .status(200)
           .send({ message: "Invlid EMail or Password", success: false });
       }
-      const token = jwt.sign({ id: user._id }, "salt", {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: "1d",
       });
       res.status(200).send({ message: "Login Success", success: true, token });
@@ -62,5 +61,5 @@ const doctorLoginController = async (req, res) => {
 
 module.exports = {
     doctorRegisterController,
-    doctorLoginController
+    doctorLoginController,
 }

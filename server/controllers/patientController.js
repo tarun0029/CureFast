@@ -3,9 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 //const jwt = require("jsonwebtoken");
 
-//const moment = require("moment");
-
-
 //register callback
 const patientRegisterController = async (req, res) => {
   try {

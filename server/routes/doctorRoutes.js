@@ -1,8 +1,9 @@
 const express = require("express");
 const {
     doctorRegisterController,
-    doctorLoginController
+    doctorLoginController,
 }  = require("../controllers/doctorController.js")
+
 
 //router object
 const router = express.Router();
