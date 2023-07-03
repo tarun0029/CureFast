@@ -1,5 +1,4 @@
 import React from "react";
-import { FcGoodDecision } from "react-icons/fc";
 import {
   DASHBOARD_SIDEBAR_BOTTOM_LINKS,
   DASHBOARD_SIDEBAR_LINKS,
@@ -7,11 +6,21 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import { HiOutlineLogout } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 const linkClass =
   "flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
+  // logout funtion
+  const handleLogout = () => {
+    localStorage.clear();
+    message.success("Logout Successfully");
+    navigate("/doctor_login");
+  };
+
   return (
     <div className="flex flex-col bg-neutral-900 w-[18rem] p-3 text-white ">
       <div className="flex flex-col items-center pt-2">
@@ -31,7 +40,10 @@ export default function Sidebar() {
         {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
           <SideBarLink key={item.key} item={item} />
         ))}
-        <div className={classNames("text-red-500 cursor-pointer", linkClass)}>
+        <div
+          className={classNames("text-red-500 cursor-pointer", linkClass)}
+          onClick={handleLogout}
+        >
           <span className="text-xl">
             <HiOutlineLogout />
           </span>
