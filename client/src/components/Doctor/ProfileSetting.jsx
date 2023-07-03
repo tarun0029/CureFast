@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
-import { message } from "antd";
-import { useSelector } from "react-redux";
 
 export default function ProfileSetting() {
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.user);
-
-  const params = useParams();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,11 +13,12 @@ export default function ProfileSetting() {
     email: "",
     bloodGroup: "",
     address: "",
-    city: "",
-    state: "",
+    city: user.city,
+    state: user.state,
     zipCode: "",
     country: "",
   });
+
   console.log(formData);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -34,70 +29,6 @@ export default function ProfileSetting() {
       };
     });
   };
-
-  console.log(process.env.REACT_APP_SERVER_DOMAIN);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // try {
-    //   const res = await axios.post(
-    //     `${process.env.REACT_APP_SERVER_DOMAIN}/profilesetting`,
-    //     formData
-    //   );
-
-    //   if (res.data.success) {
-    //     message.success("Profile Updated Successfully!");
-    //   } else {
-    //     message.error(res.data.message);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   message.error("Something Went Wrong");
-    // }
-  };
-
-  // update doc ==========
-
-  //getDOc Details
-  const getDoctorInfo = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/getDoctorInfo`,
-        { userId: params.id },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (res.data.success) {
-        console.log(res.data);
-        console.log("this is vimal");
-        // setFormData(res.data.data);
-        //setFormData()
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    //  getDoctorInfo();
-    //eslint-disable-next-line
-    setFormData({
-      firstName: user.name,
-      lastName: "",
-      name: user.name,
-      dateOfBirth: "",
-      phone: "",
-      email: user.email,
-      bloodGroup: user.bloodGroup,
-      address: "",
-      city: user.city,
-      state: user.state,
-      zipCode: "",
-      country: user.country,
-    });
-  }, []);
 
   return (
     <div className="m-2 bg-white p-4">
@@ -149,12 +80,12 @@ export default function ProfileSetting() {
             </label>
             <input
               type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
+              id="dob"
+              name="dob"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Date of Birth"
+              placeholder="dob"
               required
-              value={formData.dateOfBirth}
+              value={formData.dob}
               onChange={handleOnChange}
             />
           </div>
@@ -166,7 +97,7 @@ export default function ProfileSetting() {
               Phone number
             </label>
             <input
-              type="number"
+              type="tel"
               id="phone"
               name="phone"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"

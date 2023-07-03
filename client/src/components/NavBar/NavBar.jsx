@@ -9,7 +9,7 @@ import {
 import DesktopNav from "./DesktopNav";
 import SideNav from "./SideNav";
 import { HashLink as Link } from "react-router-hash-link";
-
+import ProfileDropdown from "../ProfileDropdown";
 
 export default function NavBar(props) {
   const [NavIcon, setNavIcon] = useState(1);
@@ -93,41 +93,39 @@ export default function NavBar(props) {
             </div>
           </div>
           <DesktopNav />
-          <div className="font-light text-white duration-1000 transform cursor-pointer bg-custom-accent lg:font-semibold hover:text-custom-accent hover:bg-white ">
-            <div
-              className="flex flex-row items-center px-4 py-2 xl:py-3"
-              onClick={() => {
-                setLoginTypeOn(!loginTypeOn);
-              }}
-            >
-              <div className="select-none">Login/Signup</div>
-              <FontAwesomeIcon icon={faAngleDown} className="ml-2" />
-            </div>
-            <div
-              className={`absolute bottom-0 left-0 overflow-hidden translate-y-full bg-custom-accent transition ease-linear duration-1000 rounded-b-lg px-4
+          {localStorage.getItem("token") ? (
+            <ProfileDropdown />
+          ) : (
+            <div className="font-light text-white duration-1000 transform cursor-pointer bg-custom-accent lg:font-semibold hover:text-custom-accent hover:bg-white ">
+              <div
+                className="flex flex-row items-center px-4 py-2 xl:py-3"
+                onClick={() => {
+                  setLoginTypeOn(!loginTypeOn);
+                }}
+              >
+                <div className="select-none">Login/Signup</div>
+                <FontAwesomeIcon icon={faAngleDown} className="ml-2" />
+              </div>
+              <div
+                className={`absolute bottom-0 left-0 overflow-hidden translate-y-full bg-custom-accent transition ease-linear duration-1000 rounded-b-lg px-4
               ${
                 loginTypeOn
                   ? "w-full h-fit opacity-90"
                   : "w-0 h-0 opacity-0 p-0"
               }
               `}
-            >
-              <div className="flex flex-col font-normal text-white">
-                <Link
-                  to="/patient_login"
-                  className="py-2 border-b-2"
-                >
-                  Patient
-                </Link>
-                <Link
-                  to="/doctor_login"
-                  className="pt-2 pb-4"
-                >
-                  Doctor
-                </Link>
+              >
+                <div className="flex flex-col font-normal text-white">
+                  <Link to="/patient_login" className="py-2 border-b-2">
+                    Patient
+                  </Link>
+                  <Link to="/doctor_login" className="pt-2 pb-4">
+                    Doctor
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <div
@@ -151,14 +149,3 @@ export default function NavBar(props) {
   );
 }
 
-{
-  /* <div className="relative overflow-hidden px-4 py-2 border-custom-accent border-1 text-white xl:py-3 bg-custom-accent transform  before:content-[''] before:absolute before:top-0 before:-left-2 before:w-full before:h-full before:bg-white before:transition duration-1000 before:duration-1000 before:-z-10  before:rounded-xl before:-translate-x-full hover:before:translate-x-2 font-light lg:font-semibold hover:text-custom-accent cursor-pointer">
-            <div className="flex flex-row items-center">
-              <div>Login/Signup</div>
-              <FontAwesomeIcon
-                icon={faAngleDown}
-                className='ml-2'
-              />
-            </div>
-          </div> */
-}

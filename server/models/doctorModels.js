@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
 const doctorSchema = mongoose.Schema({
-  userId: {
-    type: String,
-  },
   firstName: {
     type: String,
     default: "",
@@ -26,7 +23,7 @@ const doctorSchema = mongoose.Schema({
   },
   dateOfBirth: {
     type: Date,
-    default: new Date(),
+    default: "",
   },
   bloodGroup: {
     type: String,
@@ -41,7 +38,7 @@ const doctorSchema = mongoose.Schema({
     default: "",
   },
   phone: {
-    type: String,
+    type: Number,
     default: "",
   },
   state: {
@@ -49,7 +46,7 @@ const doctorSchema = mongoose.Schema({
     default: "",
   },
   zipCode: {
-    type: String,
+    type: Number,
     default: "",
   },
   country: {
