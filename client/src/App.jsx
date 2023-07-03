@@ -18,7 +18,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/team" element={<Team />} />
-      
       <Route
         path="/patient_login"
         element={

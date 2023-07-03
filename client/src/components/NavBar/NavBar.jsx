@@ -9,8 +9,7 @@ import {
 import DesktopNav from "./DesktopNav";
 import SideNav from "./SideNav";
 import { HashLink as Link } from "react-router-hash-link";
-import PatientLogin from "../AuthPage/PatientLogin";
-import DoctorLogin from "../AuthPage/DoctorLogin";
+
 
 export default function NavBar(props) {
   const [NavIcon, setNavIcon] = useState(1);
