@@ -8,7 +8,7 @@ import {
   HiOutlineQuestionMarkCircle,
   HiOutlineCog,
 } from "react-icons/hi";
-import {BiSolidLockAlt} from "react-icons/bi"
+import { BiSolidLockAlt } from "react-icons/bi";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {

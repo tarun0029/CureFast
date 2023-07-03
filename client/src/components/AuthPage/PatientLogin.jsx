@@ -1,50 +1,45 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 // import Navbar from './../NavBar/NavBar.jsx'
 import { Link } from "react-router-dom";
-import axios from 'axios';
-import { message } from 'antd';
+import axios from "axios";
+import { message } from "antd";
 
 export default function PatientLogin(props) {
- const [formData,setFormData] = useState({
-  email : "",
-  password : "",
- })
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   console.log(formData);
- const handleOnChange = (e) => {
-   const {name ,value} = e.target;
-   setFormData((prev) => {
-    return {
-      ...prev,
-      [name] : value,
-    }
-   })
- }
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
 
- const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {   
-       
-      const res = await axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/patient_login`, formData);
-     
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/patient_login`,
+        formData
+      );
+
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         message.success("Login Successfully");
-        
       } else {
         message.error(res.data.message);
       }
     } catch (error) {
-      
       console.log(error);
       message.error("something  went wrong");
     }
- 
-    
- }
-
-
-
+  };
 
   return (
     <>
@@ -66,7 +61,11 @@ export default function PatientLogin(props) {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#" onSubmit={handleSubmit}>
+              <form
+                className="space-y-4 md:space-y-6"
+                action="#"
+                onSubmit={handleSubmit}
+              >
                 <div>
                   <label
                     htmlFor="email"
@@ -139,7 +138,7 @@ export default function PatientLogin(props) {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
                   <Link
-                   to="/patient_register"
+                    to="/patient_register"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Sign up

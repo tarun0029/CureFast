@@ -1,12 +1,11 @@
 const express = require("express");
 const {
-    patientRegisterController,
-    patientLoginController
-}  = require("../controllers/patientController.js")
+  patientRegisterController,
+  patientLoginController,
+} = require("../controllers/patientController.js");
 
 //router object
 const router = express.Router();
- 
 
 // routes
 

@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-
-
 const patientSchema = mongoose.Schema({
   name: {
     type: String,
@@ -25,9 +23,6 @@ const patientSchema = mongoose.Schema({
   },
 });
 
-const patientModel = mongoose.model(
-  "patients",
-  patientSchema
-);
+const patientModel = mongoose.model("patients", patientSchema);
 
 module.exports = patientModel;

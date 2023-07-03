@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { message } from "antd"
+import { message } from "antd";
 
 export default function DoctorRegister() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name:"",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -22,45 +22,37 @@ export default function DoctorRegister() {
     });
   };
   console.log(process.env.REACT_APP_SERVER_DOMAIN);
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const {email,password,confirmPassword} = formData;
-    if(email && password && confirmPassword)
-    {
-       if(password===confirmPassword)
-       {
-        
+    const { email, password, confirmPassword } = formData;
+    if (email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        try {
+          const res = await axios.post(
+            `${process.env.REACT_APP_SERVER_DOMAIN}/doctor_register`,
+            formData
+          );
 
-        try {   
-       
-          const res = await axios.post(`${process.env.REACT_APP_SERVER_DOMAIN}/doctor_register`, formData);
-         
           if (res.data.success) {
             message.success("Register Successfully!");
-            navigate("/doctor_login")
-           
+            navigate("/doctor_login");
           } else {
             message.error(res.data.message);
           }
         } catch (error) {
-        
           console.log(error);
           message.error("Something Went Wrong");
         }
-       console.log(formData);
-      // console.log(data);
+        console.log(formData);
+        // console.log(data);
         alert("Successful");
-       }
-       else{
+      } else {
         alert("Password and confirmPassword are not equal");
-       }
-    }
-    else{
+      }
+    } else {
       alert("Please enter the requered detail!");
     }
-  }
-
-
+  };
 
   return (
     <>
@@ -71,11 +63,11 @@ export default function DoctorRegister() {
               href="#"
               className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
             >
-            <img
-              className="w-9 h-8 mr-2"
-              src="./images/Common/curefast_logo.png"
-              alt="logo"
-            />
+              <img
+                className="w-9 h-8 mr-2"
+                src="./images/Common/curefast_logo.png"
+                alt="logo"
+              />
               Doctor Register
             </a>
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
