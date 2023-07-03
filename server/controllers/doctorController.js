@@ -57,8 +57,6 @@ const doctorLoginController = async (req, res) => {
     }
   };
 
-
-
 module.exports = {
     doctorRegisterController,
     doctorLoginController,

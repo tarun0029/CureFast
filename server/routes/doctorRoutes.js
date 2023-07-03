@@ -2,6 +2,7 @@ const express = require("express");
 const {
     doctorRegisterController,
     doctorLoginController,
+    authController,
 }  = require("../controllers/doctorController.js")
 
 
@@ -16,5 +17,7 @@ router.post("/doctor_login", doctorLoginController);
 
 //REGISTER || POST
 router.post("/doctor_register", doctorRegisterController);
+
+
 
 module.exports = router;
