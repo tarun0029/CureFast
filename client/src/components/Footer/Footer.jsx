@@ -1,7 +1,7 @@
 import React from "react";
-import Upper from './Upper'
-import Down from './Down'
-import ContactUs from './ContactUs'
+import Upper from "./Upper";
+import Down from "./Down";
+import ContactUs from "./ContactUs";
 
 export default function Footer() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { HiCalendar } from "react-icons/hi";
-import {BiSolidUserPlus} from "react-icons/bi"
+import { BiSolidUserPlus } from "react-icons/bi";
 import { FaChild } from "react-icons/fa";
 
 export default function DashboardStatsGrid() {

@@ -1,5 +1,5 @@
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faLinkedin,
@@ -23,11 +23,7 @@ export default function ContactUs() {
               className="xl:text-4xl text-3xl group-hover:text-[#DB4437] transition delay-400 ease-linear group-hover:-translate-y-2 group-hover:scale-125"
             />
           </a>
-          <a
-            href=""
-            target="_blank"
-            className="group"
-          >
+          <a href="" target="_blank" className="group">
             <FontAwesomeIcon
               icon={faLinkedin}
               className="xl:text-4xl text-3xl group-hover:text-[#0E76A8] transition delay-400 ease-linear group-hover:-translate-y-2 group-hover:scale-125"

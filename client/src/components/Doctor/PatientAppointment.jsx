@@ -2,8 +2,8 @@ import React from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { FcCheckmark } from "react-icons/fc";
-import {RxCross2} from "react-icons/rx"
-import {FaRegEye} from "react-icons/fa"
+import { RxCross2 } from "react-icons/rx";
+import { FaRegEye } from "react-icons/fa";
 
 const PatientAppointmentData = [
   {
@@ -153,15 +153,15 @@ export default function PatientAppointment() {
                 <td>{patient.paid_amount}</td>
                 <td className="space-x-1 flex">
                   <button className="bg-[#02b6b31f] flex text-[#1db9aa]  py-2 px-4 rounded">
-                    <FaRegEye fontSize={18}/>
+                    <FaRegEye fontSize={18} />
                     <span className="px-1">View</span>
                   </button>
                   <button className="bg-[#0fb76b1f] flex  text-[#26af48]  py-2 px-4 rounded">
-                    <FcCheckmark fontSize={18}/>
+                    <FcCheckmark fontSize={18} />
                     <span className="px-1">Accept</span>
                   </button>
                   <button className="bg-[#f211361f] flex text-[#e63c3c]  py-2 px-4 rounded">
-                  <RxCross2 fontSize={18}/>
+                    <RxCross2 fontSize={18} />
                     <span className="px-1">Cancel</span>
                   </button>
                 </td>

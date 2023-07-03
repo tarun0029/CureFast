@@ -13,7 +13,7 @@ export default function ProfileSetting() {
     bloodGroup: "",
     address: "",
     city: "",
-    state : "",
+    state: "",
     zipCode: "",
     country: "",
   });
@@ -27,38 +27,6 @@ export default function ProfileSetting() {
       };
     });
   };
-  
-  // console.log(process.env.REACT_APP_SERVER_DOMAIN);
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const { email, password, confirmPassword } = formData;
-  //   if (email && password && confirmPassword) {
-  //     if (password === confirmPassword) {
-  //       try {
-  //         const res = await axios.post(
-  //           `${process.env.REACT_APP_SERVER_DOMAIN}/patient_register`,
-  //           formData
-  //         );
-
-  //         if (res.data.success) {
-  //           message.success("Register Successfully!");
-  //         } else {
-  //           message.error(res.data.message);
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //         message.error("Something Went Wrong");
-  //       }
-  //       console.log(formData);
-  //       // console.log(data);
-  //       alert("Successful");
-  //     } else {
-  //       alert("Password and confirmPassword are not equal");
-  //     }
-  //   } else {
-  //     alert("Please enter the requered detail!");
-  //   }
-  // };
 
   return (
     <div className="m-2 bg-white p-4">
