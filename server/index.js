@@ -20,13 +20,4 @@ app.use("/", require("./routes/patientRoutes"));
 app.use("/", require("./routes/doctorRoutes"));
 
 
-<<<<<<< HEAD
-
-
-
-
-
-
-=======
->>>>>>> dbca6889cf75e885aed6a9f17bbe4e21ad06b8f8
 app.listen(PORT,()=> console.log("server is running at port : " + PORT))
