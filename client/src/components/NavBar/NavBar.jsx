@@ -9,6 +9,8 @@ import {
 import DesktopNav from "./DesktopNav";
 import SideNav from "./SideNav";
 import { HashLink as Link } from "react-router-hash-link";
+import PatientLogin from "../AuthPage/PatientLogin";
+import DoctorLogin from "../AuthPage/DoctorLogin";
 import ProfileDropdown from "../ProfileDropdown";
 
 export default function NavBar(props) {
@@ -148,4 +150,3 @@ export default function NavBar(props) {
     </>
   );
 }
-

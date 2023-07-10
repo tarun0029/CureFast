@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 
 const patientSchema = mongoose.Schema({
-  name: {
+  firstName: {
     type: String,
-    required: [true, "name is require"],
+    default: "",
+  },
+  lastName: {
+    type: String,
+    default: "",
   },
   email: {
     type: String,
@@ -12,6 +16,37 @@ const patientSchema = mongoose.Schema({
   password: {
     type: String,
     required: [true, "password is require"],
+  },
+  dateOfBirth: {
+    type: String,
+  },
+  bloodGroup: {
+    type: String,
+    default: "",
+  },
+  address: {
+    type: String,
+    default: "",
+  },
+  city: {
+    type: String,
+    default: "",
+  },
+  phone: {
+    type: String,
+    default: "",
+  },
+  state: {
+    type: String,
+    default: "",
+  },
+  zipCode: {
+    type: String,
+    default: "",
+  },
+  country: {
+    type: String,
+    default: "",
   },
   notifcation: {
     type: Array,

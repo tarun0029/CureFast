@@ -9,10 +9,6 @@ const doctorSchema = mongoose.Schema({
     type: String,
     default: "",
   },
-  name: {
-    type: String,
-    required: [true, "name is require"],
-  },
   email: {
     type: String,
     required: [true, "email is require"],
@@ -22,8 +18,7 @@ const doctorSchema = mongoose.Schema({
     required: [true, "password is require"],
   },
   dateOfBirth: {
-    type: Date,
-    default: "",
+    type: String,
   },
   bloodGroup: {
     type: String,

@@ -47,6 +47,7 @@ const PatientAppointmentData = [
   },
 ];
 
+<<<<<<< HEAD
 export default function PatientAppointments() {
   return (
     <div>
@@ -59,6 +60,22 @@ export default function PatientAppointments() {
                 src="https://source.unsplash.com/80x80?face"
                 alt="img"
               />
+=======
+export default function Appointments() {
+  return (
+    <div>
+      {PatientAppointmentData.map((appointment, index) => (
+        <div className="flex w-full p-2">
+          <BoxWrapper>
+            <div
+              className="h-[8rem] w-[8rem] rounded-sm bg-sky-500 bg-cover bg-no-repeat bg-center"
+              style={{
+                backgroundImage:
+                  'url("https://source.unsplash.com/80x80?face")',
+              }}
+            >
+              <span className="sr-only">Marc Backes</span>
+>>>>>>> 7b3c23274a8972c38f03d104fd19009638351e80
             </div>
             <div className="pl-4 flex flex-col space-y-1 "></div>
             <div key={index}>
@@ -84,9 +101,28 @@ export default function PatientAppointments() {
                 <span className=" font-light">{appointment.phone_number}</span>
               </div>
             </div>
+<<<<<<< HEAD
           </div>
+=======
+          </BoxWrapper>
+>>>>>>> 7b3c23274a8972c38f03d104fd19009638351e80
         </div>
       ))}
     </div>
   );
+<<<<<<< HEAD
 }
+=======
+  
+}
+
+function BoxWrapper({ children }) {
+  return (
+    <div className="bg-white rounded-sm p-4 flex-1 border border-gray-200 flex items-center">
+      {children}
+    </div>
+  );
+}
+
+// AiOutlineClockCircle
+>>>>>>> 7b3c23274a8972c38f03d104fd19009638351e80

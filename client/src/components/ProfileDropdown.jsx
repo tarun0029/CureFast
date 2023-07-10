@@ -10,7 +10,7 @@ export default function ProfileDropdown() {
   const handleLogout = () => {
     localStorage.clear();
     message.success("Logout Successfully");
-    navigate("/doctor_login");
+    navigate("/");
   };
 
   return (

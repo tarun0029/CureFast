@@ -5,14 +5,10 @@ import axios from "axios";
 import { message } from "antd";
 import { useSelector } from "react-redux";
 
-export default function PatientProfileSetting() {
+export default function ProfileSetting() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-<<<<<<< HEAD:client/src/components/Patient/patientProfileSetting.jsx
   const [patient, setPatient] = useState();
-=======
-  const [doctor, setDoctor] = useState();
->>>>>>> 7b3c23274a8972c38f03d104fd19009638351e80:client/src/components/Doctor/ProfileSetting.jsx
 
   const params = useParams();
   const [formData, setFormData] = useState({
@@ -44,43 +40,9 @@ export default function PatientProfileSetting() {
   console.log(process.env.REACT_APP_SERVER_DOMAIN);
   const handleSubmit = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD:client/src/components/Patient/patientProfileSetting.jsx
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_SERVER_DOMAIN}/patient/profilesetting`,
-        {
-          ...formData,
-          userId: user._id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (res.data.success) {
-        message.success(res.data.message);
-      } else {
-        message.error(res.data.success);
-      }
-    } catch (error) {
-      console.log(error);
-      message.error("Somthing Went Wrrong ");
-    }
-  };
-
-  // update Patient ==========
-
-  //getPatient Details
-  const getPatientInfo = async () => {
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/patient/getPatientInfo`,
-=======
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/doctor/profilesetting`,
         {
           ...formData,
           userId: user._id,
@@ -104,14 +66,13 @@ export default function PatientProfileSetting() {
     }
   };
 
-  // update doc ==========
+  // update Patient ==========
 
-  //getDOc Details
-  const getDoctorInfo = async () => {
+  //getPatient Details
+  const getPatientInfo = async () => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/doctor/getDoctorInfo`,
->>>>>>> 7b3c23274a8972c38f03d104fd19009638351e80:client/src/components/Doctor/ProfileSetting.jsx
+        `${process.env.REACT_APP_SERVER_DOMAIN}/patient/getPatientInfo`,
         { userId: params.id },
         {
           headers: {
@@ -128,11 +89,7 @@ export default function PatientProfileSetting() {
   };
 
   useEffect(() => {
-<<<<<<< HEAD:client/src/components/Patient/patientProfileSetting.jsx
     getPatientInfo();
-=======
-    getDoctorInfo();
->>>>>>> 7b3c23274a8972c38f03d104fd19009638351e80:client/src/components/Doctor/ProfileSetting.jsx
     //eslint-disable-next-line
   }, []);
 

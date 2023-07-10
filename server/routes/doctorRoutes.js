@@ -2,8 +2,9 @@ const express = require("express");
 const {
   doctorRegisterController,
   doctorLoginController,
-  authController,
-
+  doctorAuthController,
+  getDoctorInfoController,
+  updateProfileController,
 } = require("../controllers/doctorController.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
@@ -18,9 +19,11 @@ router.post("/doctor_login", doctorLoginController);
 //REGISTER || POST
 router.post("/doctor_register", doctorRegisterController);
 
-//Auth || POST
-router.post("/getUserData", authMiddlewares, authController);
+router.post("/getDoctorData", authMiddlewares, doctorAuthController);
 
+//POST SINGLE DOC INFO
+router.post("/doctor/getDoctorInfo", authMiddlewares, getDoctorInfoController);
 
+router.post("/doctor/profilesetting", authMiddlewares, updateProfileController);
 
 module.exports = router;
