@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-// import Navbar from './../NavBar/NavBar.jsx'
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
 
 export default function PatientLogin(props) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -32,6 +32,7 @@ export default function PatientLogin(props) {
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         message.success("Login Successfully");
+        navigate("/patient/dashboard");
       } else {
         message.error(res.data.message);
       }

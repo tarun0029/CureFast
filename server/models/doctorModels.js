@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
 const doctorSchema = mongoose.Schema({
-  userId: {
-    type: String,
-  },
   firstName: {
     type: String,
     default: "",
@@ -11,10 +8,6 @@ const doctorSchema = mongoose.Schema({
   lastName: {
     type: String,
     default: "",
-  },
-  name: {
-    type: String,
-    required: [true, "name is require"],
   },
   email: {
     type: String,
@@ -25,8 +18,7 @@ const doctorSchema = mongoose.Schema({
     required: [true, "password is require"],
   },
   dateOfBirth: {
-    type: Date,
-    default: new Date(),
+    type: String,
   },
   bloodGroup: {
     type: String,

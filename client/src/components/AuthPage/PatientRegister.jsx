@@ -35,6 +35,7 @@ export default function PatientRegister() {
 
           if (res.data.success) {
             message.success("Register Successfully!");
+            navigate("/patient_login");
           } else {
             message.error(res.data.message);
           }

@@ -6,12 +6,15 @@ import PatientLogin from "../src/components/AuthPage/PatientLogin";
 import PatientRegister from "../src/components/AuthPage/PatientRegister";
 import DoctorLogin from "../src/components/AuthPage/DoctorLogin";
 import DoctorRegister from "../src/components/AuthPage/DoctorRegister";
-import Layout from "../src/components/Doctor/shared/Layout";
-import Dashboard from "../src/components/Doctor/Dashboard";
-import Appointments from "../src/components/Doctor/Appointments";
-import ProfileSetting from "../src/components/Doctor/ProfileSetting";
+import doctorLayout from "../src/components/Doctor/shared/Layout";
+import doctorDashboard from "../src/components/Doctor/Dashboard";
+import doctorAppointments from "../src/components/Doctor/Appointments";
+import doctorProfileSetting from "../src/components/Doctor/ProfileSetting";
+import patientLayout from ""
+
 import PublicRoute from "./components/PublicRoute";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRouteDoctor from "./components/ProtectedRouteDoctor"
+import ProtectedRoutePatient from "./components/ProtectedRoutePatient"
 
 function App() {
   return (
@@ -53,34 +56,66 @@ function App() {
       <Route
         path="/doctor/"
         element={
-          <ProtectedRoute>
+          <ProtectedRouteDoctor>
             <Layout />
-          </ProtectedRoute>
+          </ProtectedRouteDoctor>
         }
       >
         <Route
           path="appointments"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteDoctor>
               <Appointments />
-            </ProtectedRoute>
+            </ProtectedRouteDoctor>
           }
         />
         <Route
           path="profilesetting"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteDoctor>
               <ProfileSetting />
-            </ProtectedRoute>
+            </ProtectedRouteDoctor>
           }
         />
-
         <Route
           path="dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteDoctor>
               <Dashboard />
-            </ProtectedRoute>
+            </ProtectedRouteDoctor>
+          }
+        />
+      </Route>
+      <Route
+        path="/patient/"
+        element={
+          <ProtectedRoutePatient>
+            <Layout />
+          </ProtectedRoutePatient>
+        }
+      >
+        <Route
+          path="appointments"
+          element={
+            <ProtectedRoutePatient>
+              <Appointments />
+            </ProtectedRoutePatient>
+          }
+        />
+        <Route
+          path="profilesetting"
+          element={
+            <ProtectedRoutePatient>
+              <ProfileSetting />
+            </ProtectedRoutePatient>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoutePatient>
+              <Dashboard />
+            </ProtectedRoutePatient>
           }
         />
       </Route>

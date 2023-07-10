@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Popover, Transition } from "@headlessui/react";
+import { Menu, Popover, Transition } from "@headlessui/react";
 import {
   HiOutlineBell,
   HiOutlineSearch,

@@ -6,7 +6,7 @@ import { message } from "antd";
 export default function DoctorRegister() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -82,19 +82,19 @@ export default function DoctorRegister() {
                 >
                   <div>
                     <label
-                      htmlFor="name"
+                      htmlFor="Firstname"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Name
                     </label>
                     <input
-                      type="name"
-                      name="name"
-                      id="name"
+                      type="string"
+                      name="firstName"
+                      id="firstName"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name"
                       required
-                      value={formData.name}
+                      value={formData.firstName}
                       onChange={handleOnChange}
                     />
                   </div>
@@ -142,7 +142,7 @@ export default function DoctorRegister() {
                       Confirm password
                     </label>
                     <input
-                      type="confirmPassword"
+                      type="password"
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="••••••••"

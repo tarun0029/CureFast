@@ -11,11 +11,11 @@ export default function ProtectedRoute({ children }) {
 
   //get user
   //eslint-disable-next-line
-  const getUser = async () => {
+  const getPatient = async () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/getUserData`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/getPatientData`,
         { token: localStorage.getItem("token") },
         {
           headers: {
@@ -29,7 +29,7 @@ export default function ProtectedRoute({ children }) {
         dispatch(setUser(res.data.data));
       } else {
         localStorage.clear();
-        <Navigate to="/doctor_login" />;
+        <Navigate to="/patient_login" />;
       }
     } catch (error) {
       localStorage.clear();
@@ -40,13 +40,13 @@ export default function ProtectedRoute({ children }) {
 
   useEffect(() => {
     if (!user) {
-      getUser();
+      getPatient();
     }
-  }, [user, getUser]);
+  }, [user, getPatient]);
 
   if (localStorage.getItem("token")) {
     return children;
   } else {
-    return <Navigate to="/doctor_login" />;
+    return <Navigate to="/" />;
   }
 }

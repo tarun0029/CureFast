@@ -53,7 +53,75 @@ const patientLoginController = async (req, res) => {
   }
 };
 
+const patientAuthController = async (req, res) => {
+  try {
+    const user = await patientModel.findById({ _id: req.body.userId });
+    user.password = undefined;
+    if (!user) {
+      return res.status(200).send({
+        message: "user not found",
+        success: false,
+      });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: user,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "auth error",
+      success: false,
+      error,
+    });
+  }
+};
+
+const getPatientInfoController = async (req, res) => {
+  try {
+    const doctor = await patientModel.findById({ _id: req.body.userId });
+    res.status(200).send({
+      success: true,
+      message: "patient data fetch success",
+      data: doctor,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error in Fetching Doctor Details",
+    });
+  }
+};
+
+// update doc profile
+const updateProfileController = async (req, res) => {
+  try {
+    const doctor = await patientModel.findByIdAndUpdate(
+      { _id: req.body.userId },
+      req.body
+    );
+    res.status(201).send({
+      success: true,
+      message: "patient Profile Updated",
+      data: doctor,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "patient Profile Update issue",
+      error,
+    });
+  }
+};
+
 module.exports = {
   patientRegisterController,
   patientLoginController,
+  patientAuthController,
+  getPatientInfoController,
+  updateProfileController,
 };

@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 export default function ProfileSetting() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  const [doctor, setDoctor] = useState();
+  const [patient, setPatient] = useState();
 
   const params = useParams();
   const [formData, setFormData] = useState({
@@ -42,7 +42,7 @@ export default function ProfileSetting() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/doctor/profilesetting`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/patient/profilesetting`,
         {
           ...formData,
           userId: user._id,
@@ -66,13 +66,13 @@ export default function ProfileSetting() {
     }
   };
 
-  // update doc ==========
+  // update Patient ==========
 
-  //getDOc Details
-  const getDoctorInfo = async () => {
+  //getPatient Details
+  const getPatientInfo = async () => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/doctor/getDoctorInfo`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/patient/getPatientInfo`,
         { userId: params.id },
         {
           headers: {
@@ -89,7 +89,7 @@ export default function ProfileSetting() {
   };
 
   useEffect(() => {
-    getDoctorInfo();
+    getPatientInfo();
     //eslint-disable-next-line
   }, []);
 
