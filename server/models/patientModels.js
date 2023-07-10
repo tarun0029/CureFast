@@ -48,13 +48,17 @@ const patientSchema = mongoose.Schema({
     type: String,
     default: "",
   },
-  notifcation: {
+  notification: {
     type: Array,
     default: [],
   },
   seennotification: {
     type: Array,
     default: [],
+  },
+  isDoctor: {
+    type: Boolean,
+    default: false,
   },
 });
 

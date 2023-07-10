@@ -18,9 +18,10 @@ const doctorSchema = mongoose.Schema({
     required: [true, "password is require"],
   },
   dateOfBirth: {
-    type: String,
+    type: Date,
+    default: "",
   },
-  bloodGroup: {
+  specialization: {
     type: String,
     default: "",
   },
@@ -33,7 +34,7 @@ const doctorSchema = mongoose.Schema({
     default: "",
   },
   phone: {
-    type: Number,
+    type: String,
     default: "",
   },
   state: {
@@ -41,20 +42,24 @@ const doctorSchema = mongoose.Schema({
     default: "",
   },
   zipCode: {
-    type: Number,
+    type: String,
     default: "",
   },
   country: {
     type: String,
     default: "",
   },
-  notifcation: {
+  notification: {
     type: Array,
     default: [],
   },
   seennotification: {
     type: Array,
     default: [],
+  },
+  isDoctor: {
+    type: Boolean,
+    default: true,
   },
 });
 

@@ -5,6 +5,8 @@ const {
   doctorAuthController,
   getDoctorInfoController,
   updateProfileController,
+  getAllPatientsController,
+  acceptAppointmentController,
 } = require("../controllers/doctorController.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
@@ -25,5 +27,10 @@ router.post("/getDoctorData", authMiddlewares, doctorAuthController);
 router.post("/doctor/getDoctorInfo", authMiddlewares, getDoctorInfoController);
 
 router.post("/doctor/profilesetting", authMiddlewares, updateProfileController);
+
+//GET ALL Patients
+router.post("/getAllPatients", authMiddlewares, getAllPatientsController);
+
+router.post("/accept-appointment",authMiddlewares,acceptAppointmentController);
 
 module.exports = router;

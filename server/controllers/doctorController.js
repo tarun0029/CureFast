@@ -1,6 +1,8 @@
 const doctorModel = require("../models/doctorModels");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const appointmentModel = require("../models/appointmentModel");
+const patientModel = require("../models/patientModels");
 
 //const moment = require("moment");
 
@@ -57,7 +59,7 @@ const doctorLoginController = async (req, res) => {
 const doctorAuthController = async (req, res) => {
   try {
     const user = await doctorModel.findById({ _id: req.body.userId });
-    user.password = undefined;
+    // user.password = undefined;
     if (!user) {
       return res.status(200).send({
         message: "user not found",
@@ -101,8 +103,8 @@ const getDoctorInfoController = async (req, res) => {
 const updateProfileController = async (req, res) => {
   try {
     const doctor = await doctorModel.findByIdAndUpdate(
-      { _id: req.body.userId }, 
-      req.body 
+      { _id: req.body.userId },
+      req.body
     );
     res.status(201).send({
       success: true,
@@ -118,10 +120,93 @@ const updateProfileController = async (req, res) => {
     });
   }
 };
+
+const getAllPatientsController = async (req, res) => {
+  try {
+    const patients = await appointmentModel.find(
+      { doctorId: req.body.doctorId },
+      {}
+    );
+
+    const patientArray = [];
+
+    patients.forEach((patient) => {
+      patientArray.push({
+        status: patient.status,
+        appointmentId: patient._id,
+        patientId: patient.patientId,
+      });
+    });
+
+    const patientIds = patientArray.map((patient) => patient.patientId);
+
+    const patientsDetails = await patientModel.find({
+      _id: { $in: patientIds },
+    });
+
+    const pairedPatients = patientArray.map((patient) => {
+      const patientDetails = patientsDetails.find((p) =>
+        p._id.equals(patient.patientId)
+      );
+
+      return {
+        appointmentId: patient.appointmentId,
+        status: patient.status,
+        patientDetails: patientDetails.toObject(),
+      };
+    });
+
+    res.status(200).send({
+      success: true,
+      message: "Patients List Fetched Successfully",
+      data: pairedPatients,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error While Fetching Patients",
+    });
+  }
+};
+
+
+const acceptAppointmentController = async (req, res) => {
+  try {
+    const { appointmentId, status } = req.body;
+    const appointment = await appointmentModel.findByIdAndUpdate(
+      appointmentId,
+      { status }
+    );
+    const patient = await patientModel.findOne({ _id: appointment.patientId });
+    const notification = patient.notification;
+    notification.push({
+      type: "status-updated",
+      message: `your appointment has been updated ${status}`,
+    });
+    await patient.save();
+    res.status(200).send({
+      success: true,
+      message: "Appointment Status Updated",
+      data:true,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error In Update Status",
+    });
+  }
+};
+
 module.exports = {
   doctorRegisterController,
   doctorLoginController,
   doctorAuthController,
   getDoctorInfoController,
   updateProfileController,
+  getAllPatientsController,
+  acceptAppointmentController,
 };
