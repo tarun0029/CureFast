@@ -1,14 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import Navbar from './../NavBar/NavBar.jsx'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../redux/features/userSlice";
+import NavBar from "../NavBar/NavBar";
 
 export default function PatientLogin(props) {
+  const Navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  //get user
+  //eslint-disable-next-line
+  const getPatient = async () => {
+    try {
+      //dispatch(showLoading());
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/getPatientData`,
+        { token: localStorage.getItem("token") },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      //dispatch(hideLoading());
+      if (res.data.success) {
+        console.log(res.data.data);
+        dispatch(setUser(res.data.data));
+      } else {
+        localStorage.clear();
+        <Navigate to="/patient_login" />;
+      }
+    } catch (error) {
+      localStorage.clear();
+      //dispatch(hideLoading());
+      console.log(error);
+    }
+  };
+
   console.log(formData);
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +69,10 @@ export default function PatientLogin(props) {
       if (res.data.success) {
         localStorage.setItem("token", res.data.token);
         message.success("Login Successfully");
+
+        getPatient();
+
+        Navigate("/patient/dashboard");
       } else {
         message.error(res.data.message);
       }
@@ -43,6 +84,7 @@ export default function PatientLogin(props) {
 
   return (
     <>
+    <NavBar/>
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a

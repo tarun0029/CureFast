@@ -4,16 +4,16 @@ import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-export default function Appointments() {
+export default function PatientAppointments() {
   const { user } = useSelector((state) => state.user);
-  const [patients, setPatients] = useState([]);
+  const [doctors, setDoctors] = useState([]);
 
-  const getAllPatientData = async () => {
+  const getAllDoctorData = async () => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/getAllPatients`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/myappointment`,
         {
-          doctorId: user._id,
+          patientId: user._id,
         },
         {
           headers: {
@@ -22,7 +22,7 @@ export default function Appointments() {
         }
       );
       if (res.data.success) {
-        setPatients(res.data.data);
+        setDoctors(res.data.data);
       }
     } catch (error) {
       console.log(error);
@@ -30,14 +30,14 @@ export default function Appointments() {
   };
 
   useEffect(() => {
-    getAllPatientData();
+    getAllDoctorData();
   }, [user]);
 
   return (
     <div>
-      {patients.map(
-        (patient) =>
-          patient?.status === "accept" && (
+      {doctors.map(
+        (doctor) =>
+          doctor?.status === "accept" && (
             <div className="p-3">
               <div className="flex bg-slate-200 border  mx-4 px-4 py-4 shadow-xl hover:scale-105 duration-[400ms]">
                 <div className="mb-4 py-2 md:mr-6 md:mb-0">
@@ -48,32 +48,32 @@ export default function Appointments() {
                   />
                 </div>
                 <div className="pl-4 flex flex-col space-y-1 "></div>
-                <div key={patient?.appointmentId}>
+                <div key={doctor?.appointmentId}>
                   <div className="text-lg text-black">
-                    {patient?.patientDetails?.firstName}
+                    {doctor?.doctorDetails?.firstName}
                   </div>
                   <div className="flex space-x-3 text-[0.80rem] items-center">
                     <AiOutlineClockCircle />
                     <span className=" text-[#757575] font-light">
-                      {patient?.patientDetails?.bloodGroup}
+                      {doctor?.doctorDetails?.bloodGroup}
                     </span>
                   </div>
                   <div className="flex text-[#757575] space-x-3 text-[0.80rem]  items-center">
                     <FaMapMarkerAlt />
                     <span className=" font-light">
-                      {patient?.patientDetails?.state}
+                      {doctor?.doctorDetails?.state}
                     </span>
                   </div>
                   <div className="flex text-[#757575] space-x-3 text-[0.80rem]  items-center">
                     <FaEnvelope />
                     <span className=" font-light">
-                      {patient?.patientDetails?.country}
+                      {doctor?.doctorDetails?.country}
                     </span>
                   </div>
                   <div className="flex text-[#757575] space-x-3 text-[0.80rem]  items-center">
                     <FaPhone />
                     <span className=" font-light">
-                      {patient?.patientDetails?.zipCode}
+                      {doctor?.doctorDetails?.zipCode}
                     </span>
                   </div>
                 </div>

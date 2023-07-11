@@ -5,10 +5,10 @@ import axios from "axios";
 import { message } from "antd";
 import { useSelector } from "react-redux";
 
-export default function ProfileSetting() {
+export default function PatientProfileSetting() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
-  const [doctor, setDoctor] = useState();
+  const [patient, setPatient] = useState();
 
   const params = useParams();
   const [formData, setFormData] = useState({
@@ -18,27 +18,14 @@ export default function ProfileSetting() {
     dateOfBirth: "",
     phone: "",
     email: "",
-    gender: "",
+    bloodGroup: "",
     address: "",
-    biography:"",
-    consultancyFees:"",
-    experience:"",
-    specialization:"",
     city: "",
     state: "",
     zipCode: "",
     country: "",
   });
   console.log(formData);
-
-  //  const handleOnSelect = (e) => {
-  //   setFormData((prev) => {
-  //     return {
-  //       ...prev,
-  //       gender : e.target.value,
-  //     }
-  //   })
-  //  }
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +42,7 @@ export default function ProfileSetting() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/doctor/profilesetting`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/patient/profilesetting`,
         {
           ...formData,
           userId: user._id,
@@ -78,13 +65,13 @@ export default function ProfileSetting() {
     }
   };
 
-  // update doc ==========
+  // update Patient ==========
 
-  //getDOc Details
-  const getDoctorInfo = async () => {
+  //getPatient Details
+  const getPatientInfo = async () => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/doctor/getDoctorInfo`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/patient/getPatientInfo`,
         { userId: params.id },
         {
           headers: {
@@ -101,7 +88,7 @@ export default function ProfileSetting() {
   };
 
   useEffect(() => {
-    getDoctorInfo();
+    getPatientInfo();
     //eslint-disable-next-line
   }, []);
 
@@ -172,7 +159,7 @@ export default function ProfileSetting() {
               Phone number
             </label>
             <input
-              type="string"
+              type="number"
               id="phone"
               name="phone"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -203,104 +190,24 @@ export default function ProfileSetting() {
           </div>
           <div className="mb-6">
             <label
-              htmlFor="gender"
+              htmlFor="Blood Group"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800"
             >
-              Gender
-            </label>
-
-            <select
-              id="gender"
-              name="gender"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              value={formData.gender}
-              onChange={handleOnChange}
-            >
-              <option value="">Choose Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <label
-            htmlFor="biography"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800"
-          >
-            Biography
-          </label>
-          <textarea
-            type="text"
-            id="biography"
-            rows="4"
-            name="biography"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="biography"
-            required
-            value={formData.biography}
-            onChange={handleOnChange}
-          ></textarea>
-        </div>
-   
-   <div className="grid gap-6 mb-6 md:grid-cols-2">
-   <div>
-            <label
-              htmlFor="consultancyFees"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800"
-            >
-              Consultancy Fees
+              Blood Group
             </label>
             <input
               type="text"
-              id="consultancyFees"
-              name="consultancyFees"
+              id="bloodGroup"
+              name="bloodGroup"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Enter Fees"
+              placeholder="A+"
               required
-              value={formData.consultancyFees}
+              value={formData.bloodGroup}
               onChange={handleOnChange}
             />
           </div>
-          <div>
-            <label
-              htmlFor="experience"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800"
-            >
-              Experience
-            </label>
-            <input
-              type="text"
-              id="experience"
-              name="experience"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Enter your experience"
-              required
-              value={formData.experience}
-              onChange={handleOnChange}
-            />
-          </div>
-   </div>
-
-
-        <div className="mb-6">
-          <label
-            htmlFor="specialization"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800"
-          >
-            Specialization
-          </label>
-          <input
-            type="text"
-            id="specialization"
-            name="specialization"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-900 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="specialization"
-            required
-            value={formData.specialization}
-            onChange={handleOnChange}
-          />
         </div>
+
         <div className="mb-6">
           <label
             htmlFor="Address"

@@ -5,17 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/features/alertSlice";
 import { setUser } from "../redux/features/userSlice";
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRouteDoctor({ children }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
   //get user
   //eslint-disable-next-line
-  const getUser = async () => {
+  const getDoctor = async () => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/getUserData`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/getDoctorData`,
         { token: localStorage.getItem("token") },
         {
           headers: {
@@ -39,14 +39,12 @@ export default function ProtectedRoute({ children }) {
   };
 
   useEffect(() => {
-    if (!user) {
-      getUser();
-    }
-  }, [user]);
+    getDoctor();
+  }, []);
 
   if (localStorage.getItem("token")) {
     return children;
   } else {
-    return <Navigate to="/doctor_login" />;
+    return <Navigate to="/" />;
   }
 }

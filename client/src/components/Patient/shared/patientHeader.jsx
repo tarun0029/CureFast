@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
   HiOutlineBell,
@@ -9,15 +9,70 @@ import { AiOutlineHome } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import ProfileDropdown from "../../ProfileDropdown";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setDoctorList } from "../../../redux/features/doctorListSlice";
 
-export default function Header() {
+export default function PatientHeader() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [doctors, setDoctors] = useState([]);
 
   const handleOnClick = () => {
     navigate("/");
   };
+  console.log(searchQuery);
+
+  const getAllDoctorData = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/getAllDoctors`,
+
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (res.data.success) {
+      //  setDoctors(res.data.data);
+        dispatch(setDoctorList(res.data.data));
+       // console.log(doctorList);
+        //setDoctors(doctorList);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleOnChange = (e) => {
+    if(e.target.value==='')
+    {
+      getAllDoctorData();
+    }
+    setSearchQuery(e.target.value);
+
+  };
+   
+  
+  const handleSearch = (event) => {
+    if (event.key === 'Enter') {
+    axios
+      .get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/doctors?searchQuery=${searchQuery}`
+      )
+      .then((response) => {
+       // setDoctors(response.data);
+         dispatch(setDoctorList(response.data));
+      })
+      .catch((error) => {
+        console.error("Failed to fetch search results:", error);
+      });
+
+    }
+  };
+
 
   return (
     <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200 justify-between">
@@ -28,9 +83,15 @@ export default function Header() {
         />
         <input
           type="text"
+          name="searchQuery"
+          id="searchQuery"
           placeholder="Search..."
           className="text-sm focus:outline-none active:outline-none border border-gray-300 w-[24rem] h-10 pl-11 pr-4 rounded-md"
+          value={searchQuery}
+          onChange={handleOnChange}
+          onKeyDown={handleSearch} 
         />
+
       </div>
       <div className="flex items-center gap-2 mr-2">
         <Popover className="relative">
@@ -88,13 +149,15 @@ export default function Header() {
                   "group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100"
                 )}
               >
-                {user?.notification.length > 0 && (
-                  <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-0.5 -right-0.5">
-                    {user.notification.length}
-                  </div>
-                )}
+                <div>
+                  {user?.notification.length > 0 && (
+                    <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-0.5 -right-0.5">
+                      {user.notification.length}
+                    </div>
+                  )}
 
-                <HiOutlineBell fontSize={24} />
+                  <HiOutlineBell fontSize={24} />
+                </div>
               </Popover.Button>
               <Transition
                 as={Fragment}
@@ -106,46 +169,12 @@ export default function Header() {
                 leaveTo="opacity-0 translate-y-1"
               >
                 <Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
-                  <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5 max-h-60 overflow-y-auto">
+                  <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
                     <strong className="text-gray-700 font-medium">
                       Notifications
                     </strong>
-                    <div className="mt-2 py-1 text-sm ">
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
+                    <div className="mt-2 py-1 text-sm">
+                      This is notification panel.
                     </div>
                   </div>
                 </Popover.Panel>

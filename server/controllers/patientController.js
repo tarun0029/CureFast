@@ -58,7 +58,7 @@ const patientLoginController = async (req, res) => {
 const patientAuthController = async (req, res) => {
   try {
     const user = await patientModel.findById({ _id: req.body.userId });
-   // user.password = undefined;
+    // user.password = undefined;
     if (!user) {
       return res.status(200).send({
         message: "user not found",
@@ -120,11 +120,10 @@ const updateProfileController = async (req, res) => {
   }
 };
 
-
 //GET ALL DOC
 const getAllDocotrsController = async (req, res) => {
   try {
-    const doctors = await doctorModel.find({},{});
+    const doctors = await doctorModel.find({}, {});
     res.status(200).send({
       success: true,
       message: "Docots Lists Fetched Successfully",
@@ -152,7 +151,6 @@ const getDoctorDetailsController = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  
 };
 
 //BOOK APPOINTMENT
@@ -182,6 +180,20 @@ const bookAppointmentController = async (req, res) => {
   }
 };
 
+const searchDoctorController = async (req, res) => {
+  const { searchQuery } = req.query;
+
+  doctorModel
+    .find({
+      $or: [
+        { firstName: { $regex: searchQuery, $options: "i" } },
+        { address: { $regex: searchQuery, $options: "i" } },
+        // ... add more fields to search
+      ],
+    })
+    .then((doctors) => res.json(doctors))
+    .catch((err) => res.status(500).json({ error: err.message }));
+};
 
 module.exports = {
   patientRegisterController,
@@ -191,7 +203,6 @@ module.exports = {
   updateProfileController,
   getAllDocotrsController,
   getDoctorDetailsController,
-  bookAppointmentController, 
+  bookAppointmentController,
+  searchDoctorController,
 };
-
-

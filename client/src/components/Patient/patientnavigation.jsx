@@ -10,62 +10,62 @@ import {
 } from "react-icons/hi";
 import { BiSolidLockAlt } from "react-icons/bi";
 
-export const DASHBOARD_SIDEBAR_LINKS = [
+export const PATIENT_DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "dashboard",
     label: "Dashboard",
-    path: "/doctor/dashboard",
+    path: "/patient/dashboard",
     icon: <HiOutlineViewGrid />,
   },
   {
-    key: "Appointments",
-    label: "Appointments",
-    path: "/doctor/appointments",
+    key: "MyAppointments",
+    label: "MyAppointments",
+    path: "/patient/appointments",
     icon: <HiCalendar />,
   },
   {
-    key: "MyPatient",
-    label: "My Patients",
-    path: "/doctor/mypatient",
+    key: "Book Appointment",
+    label: "Book Appointment",
+    path: "/patient/appointmentpage",
     icon: <HiIdentification />,
   },
   {
     key: "ScheduleTiming",
     label: "Schedule Timings",
-    path: "/doctor/scheduletiming",
+    path: "/patient/scheduletiming",
     icon: <HiClock />,
   },
   {
     key: "Reviews",
     label: "Reviews",
-    path: "/doctor/reviews",
+    path: "/patient/reviews",
     icon: <HiPencilAlt />,
   },
   {
     key: "messages",
     label: "Messages",
-    path: "/doctor/messages",
+    path: "/patient/messages",
     icon: <HiMail />,
   },
 ];
 
-export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
+export const PATIENT_DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
   {
     key: "profilesetting",
     label: "Profile Settings",
-    path: "/doctor/profilesetting",
+    path: "/patient/profilesetting",
     icon: <HiOutlineCog />,
   },
   {
     key: "changepassword",
     label: "Change Password",
-    path: "/doctor/changepassword",
+    path: "/patient/changepassword",
     icon: <BiSolidLockAlt />,
   },
   {
     key: "support",
     label: "Help & Support",
-    path: "/doctor/support",
+    path: "/patient/support",
     icon: <HiOutlineQuestionMarkCircle />,
   },
 ];

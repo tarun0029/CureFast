@@ -10,15 +10,23 @@ import Layout from "../src/components/Doctor/shared/Layout";
 import Dashboard from "../src/components/Doctor/Dashboard";
 import Appointments from "../src/components/Doctor/Appointments";
 import ProfileSetting from "../src/components/Doctor/ProfileSetting";
+import PatientProfileSetting from "../src/components/Patient/patientProfileSetting";
+import PatientAppointments from "../src/components/Patient/patientAppointments";
+import PatientDashboard from "../src/components/Patient/patientDashboard";
+import PatientLayout from "../src/components/Patient/shared/patientLayout";
+import AppointmentPage from "../src/components/Patient/AppointmentPage";
+import ProtectedRouteDoctor from "./components/ProtectedRouteDoctor";
+import ProtectedRoutePatient from "./components/ProtectedRoutePatient";
 import PublicRoute from "./components/PublicRoute";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ViewDoctorProfile from "./components/Patient/ViewDoctorProfile";
+import BookAppointment from "./components/Patient/BookAppointment";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/team" element={<Team />} />
-      
+      <Route path="/viewdoctorprofile/:id" element={<ViewDoctorProfile />} />
       <Route
         path="/patient_login"
         element={
@@ -54,37 +62,86 @@ function App() {
       <Route
         path="/doctor/"
         element={
-          <ProtectedRoute>
+          <ProtectedRouteDoctor>
             <Layout />
-          </ProtectedRoute>
+          </ProtectedRouteDoctor>
         }
       >
         <Route
           path="appointments"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteDoctor>
               <Appointments />
-            </ProtectedRoute>
+            </ProtectedRouteDoctor>
           }
         />
         <Route
           path="profilesetting"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteDoctor>
               <ProfileSetting />
-            </ProtectedRoute>
+            </ProtectedRouteDoctor>
           }
         />
-
         <Route
           path="dashboard"
           element={
-            <ProtectedRoute>
+            <ProtectedRouteDoctor>
               <Dashboard />
-            </ProtectedRoute>
+            </ProtectedRouteDoctor>
           }
         />
       </Route>
+
+      <Route
+        path="/patient/"
+        element={
+          <ProtectedRoutePatient>
+            <PatientLayout />
+          </ProtectedRoutePatient>
+        }
+      >
+        <Route
+          path="appointments"
+          element={
+            <ProtectedRoutePatient>
+              <PatientAppointments />
+            </ProtectedRoutePatient>
+          }
+        />
+        <Route
+          path="profilesetting"
+          element={
+            <ProtectedRoutePatient>
+              <PatientProfileSetting />
+            </ProtectedRoutePatient>
+          }
+        />
+        <Route
+          path="appointmentpage"
+          element={
+            <ProtectedRoutePatient>
+              <AppointmentPage />
+            </ProtectedRoutePatient>
+          }
+        />
+        <Route
+          path="dashboard"
+          element={
+            <ProtectedRoutePatient>
+              <PatientDashboard />
+            </ProtectedRoutePatient>
+          }
+        />
+      </Route>
+      <Route
+          path="bookappointment/:id"
+          element={
+            <ProtectedRoutePatient>
+              <BookAppointment />
+            </ProtectedRoutePatient>
+          }
+        />
     </Routes>
   );
 }
