@@ -60,31 +60,31 @@ function AppointmentPage() {
             </div>
             <div>
               <div key={index}>
-                <div className="text-lg text-black">{Doctordata.firstName}</div>
+                <div className="text-lg text-black">{Doctordata?.firstName}</div>
                 <div className="flex space-x-3 text-[0.80rem] items-center">
                   <span className=" text-[#757575] font-light">
-                    {Doctordata.dataOfBirth}
+                    {Doctordata?.dataOfBirth}
                   </span>
                 </div>
                 <div className="flex space-x-3 text-[0.80rem] items-center">
                   <span className=" text-[#757575] font-light">
-                    {Doctordata.address}
+                    {Doctordata?.address}
                   </span>
                 </div>
                 <div className="flex space-x-3 text-[0.80rem] items-center">
                   <span className=" text-[#757575] font-light">
-                    {Doctordata.email}
+                    {Doctordata?.email}
                   </span>
                 </div>
                 <div className="flex space-x-2">
                   <button
-                    onClick={() => handleViewDoctorProfile(Doctordata._id)}
+                    onClick={() => handleViewDoctorProfile(Doctordata?._id)}
                     className="w-full rounded-lg border-2 bg-white px-4 py-2 font-medium text-gray-500"
                   >
                     View Profile
                   </button>
                   <button
-                    onClick={() => handleBookAppointment(Doctordata._id)}
+                    onClick={() => handleBookAppointment(Doctordata?._id)}
                     className="w-full rounded-lg border-2 border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
                   >
                     Book Appointment

@@ -10,8 +10,7 @@ import { message } from "antd";
 export default function PatientAppointment() {
   const { user } = useSelector((state) => state.user);
   const [patients, setPatients] = useState([]);
-  const [acceptColor, setAcceptColor] = useState(false);
-  const [count,setCount] = useState(1);
+  const [count, setCount] = useState(1);
 
   const getAllPatientData = async () => {
     try {
@@ -34,15 +33,13 @@ export default function PatientAppointment() {
     }
   };
 
- 
-
-  const handleAccept = async (id) => {
+  const handleStatus = async (id, status) => {
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/accept-appointment`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/appointment-status`,
         {
           appointmentId: id,
-          status: "accept",
+          status: status,
         },
         {
           headers: {
@@ -52,7 +49,7 @@ export default function PatientAppointment() {
       );
       if (res.data.success) {
         message.success(res.data.message);
-        setCount(prev=> prev+1);
+        setCount((prev) => prev + 1);
       }
     } catch (error) {
       console.log(error);
@@ -61,7 +58,7 @@ export default function PatientAppointment() {
 
   useEffect(() => {
     getAllPatientData();
-  }, [user,count]);
+  }, [user, count]);
 
   return (
     <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1">
@@ -80,44 +77,50 @@ export default function PatientAppointment() {
             </tr>
           </thead>
           <tbody>
-            {patients.map((patient) => ( (patient?.status ==="pending" ) &&
-              <tr key={patient?.appointmentId}>
-                <td>
-                  <Link
-                    className="text-sky-500 underline"
-                    to={`/patient/${patient?.patientDetails?.firstName}`}
-                  >
-                    #{patient?.patientDetails?.firstName}
-                  </Link>
-                </td>
-                <td>{patient?.patientDetails?.bloodGroup}</td>
-                <td>{patient?.patientDetails?.email}</td>
-                <td>{patient?.patientDetails?.address}</td>
-                <td className="space-x-1 flex">
-                  <button className="bg-[#02b6b31f] flex text-[#1db9aa]  py-2 px-4 rounded">
-                    <FaRegEye fontSize={18} />
-                    <span className="px-1">View</span>
-                  </button>
-                  <button
-                    onClick={() => handleAccept(patient?.appointmentId)}
-                    className={`flex text-[#26af48] py-2 px-4 rounded ${
-                      patient?.status === "pending"
-                        ? "bg-[#0fb76b1f]"
-                        : "bg-[#58f988c1]"
-                    }`}
-                  >
-                    <div className="font-black">
-                      <FcCheckmark fontSize={18} />
-                    </div>
-                    <span className="px-1">Accept</span>
-                  </button>
-                  <button className="bg-[#f211361f] flex text-[#e63c3c]  py-2 px-4 rounded">
-                    <RxCross2 fontSize={18} />
-                    <span className="px-1">Cancel</span>
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {patients?.map(
+              (patient) =>
+                patient?.status === "pending" && (
+                  <tr key={patient?.appointmentId}>
+                    <td>
+                      <Link
+                        className="text-sky-500 underline"
+                        to={`/patient/${patient?.patientDetails?.firstName}`}
+                      >
+                        #{patient?.patientDetails?.firstName}
+                      </Link>
+                    </td>
+                    <td>{patient?.patientDetails?.bloodGroup}</td>
+                    <td>{patient?.patientDetails?.email}</td>
+                    <td>{patient?.patientDetails?.address}</td>
+                    <td className="space-x-1 flex">
+                      <button className="bg-[#02b6b31f] flex text-[#1db9aa]  py-2 px-4 rounded">
+                        <FaRegEye fontSize={18} />
+                        <span className="px-1">View</span>
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleStatus(patient?.appointmentId, "accpet")
+                        }
+                        className="flex text-[#26af48] bg-[#0fb76b1f] py-2 px-4 rounded"
+                      >
+                        <div className="font-black">
+                          <FcCheckmark fontSize={18} />
+                        </div>
+                        <span className="px-1">Accept</span>
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleStatus(patient?.appointmentId, "cancel")
+                        }
+                        className="bg-[#f211361f] flex text-[#e63c3c]  py-2 px-4 rounded"
+                      >
+                        <RxCross2 fontSize={18} />
+                        <span className="px-1">Cancel</span>
+                      </button>
+                    </td>
+                  </tr>
+                )
+            )}
           </tbody>
         </table>
       </div>
