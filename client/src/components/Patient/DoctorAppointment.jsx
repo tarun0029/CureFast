@@ -8,8 +8,31 @@ import { useSelector } from "react-redux";
 export default function DoctorAppointment() {
   const { user } = useSelector((state) => state.user);
   const [doctors, setDoctors] = useState([]);
-  
 
+  const getAllDoctorData = async () => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/myappointment`,
+        {
+          patientId: user._id,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
+      if (res.data.success) {
+        setDoctors(res.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllDoctorData();
+  }, [user]);
 
   return (
     <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1">

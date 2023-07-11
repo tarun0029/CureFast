@@ -195,6 +195,56 @@ const searchDoctorController = async (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 };
 
+const myAppointmentController = async (req, res) => {
+  try {
+    const doctors = await appointmentModel.find(
+      { patientId: req.body.patientId },
+      {}
+    );
+
+    const doctorArray = [];
+
+    doctors.forEach((doctor) => {
+      doctorArray.push({
+        status: doctor.status,
+        appointmentId: doctor._id,
+        doctorId: doctor.doctorId,
+      });
+    });
+
+    const doctorIds = doctorArray.map((doctor) => doctor.doctorId);
+
+    const doctorsDetails = await doctorModel.find({
+      _id: { $in: doctorIds },
+    });
+
+    const paireddoctors = doctorArray.map((doctor) => {
+      const doctorDetails = doctorsDetails.find((p) =>
+        p._id.equals(doctor.doctorId)
+      );
+
+      return {
+        appointmentId: doctor.appointmentId,
+        status: doctor.status,
+        doctorDetails: doctorDetails.toObject(),
+      };
+    });
+
+    res.status(200).send({
+      success: true,
+      message: "doctors List Fetched Successfully",
+      data: paireddoctors,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error While Fetching doctors",
+    });
+  }
+};
+
 module.exports = {
   patientRegisterController,
   patientLoginController,
@@ -205,4 +255,5 @@ module.exports = {
   getDoctorDetailsController,
   bookAppointmentController,
   searchDoctorController,
+  myAppointmentController,
 };

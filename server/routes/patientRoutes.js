@@ -9,7 +9,7 @@ const {
   getDoctorDetailsController,
   bookAppointmentController,
   searchDoctorController,
- 
+  myAppointmentController,
 } = require("../controllers/patientController.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
@@ -27,11 +27,18 @@ router.post("/patient_register", patientRegisterController);
 router.post("/getPatientData", authMiddlewares, patientAuthController);
 
 //POST SINGLE DOC INFO
-router.post("/patient/getPatientInfo", authMiddlewares, getPatientInfoController);
+router.post(
+  "/patient/getPatientInfo",
+  authMiddlewares,
+  getPatientInfoController
+);
 
 // POST profileSetting
-router.post("/patient/profilesetting", authMiddlewares, updateProfileController);
-
+router.post(
+  "/patient/profilesetting",
+  authMiddlewares,
+  updateProfileController
+);
 
 //GET ALL DOC
 router.get("/getAllDoctors", authMiddlewares, getAllDocotrsController);
@@ -39,15 +46,13 @@ router.get("/getAllDoctors", authMiddlewares, getAllDocotrsController);
 //get doctor details
 router.get("/viewdoctorprofile/:id", getDoctorDetailsController);
 
-// booking apping 
-router.post("/bookappointment",authMiddlewares,bookAppointmentController);
+// booking apping
+router.post("/bookappointment", authMiddlewares, bookAppointmentController);
 
-// doctor searching 
+// doctor searching
 router.get("/api/doctors", searchDoctorController);
 
-
-
-
-
+//My Appointment
+router.post("/myappointment", authMiddlewares, myAppointmentController);
 
 module.exports = router;

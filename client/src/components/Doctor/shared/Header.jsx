@@ -154,7 +154,7 @@ export default function Header() {
           )}
         </Popover>
         <div>
-          <ProfileDropdown/>
+          <ProfileDropdown />
         </div>
       </div>
     </div>
