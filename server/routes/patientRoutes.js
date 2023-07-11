@@ -8,6 +8,8 @@ const {
   getAllDocotrsController,
   getDoctorDetailsController,
   bookAppointmentController,
+  searchDoctorController,
+ 
 } = require("../controllers/patientController.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
@@ -39,6 +41,11 @@ router.get("/viewdoctorprofile/:id", getDoctorDetailsController);
 
 // booking apping 
 router.post("/bookappointment",authMiddlewares,bookAppointmentController);
+
+// doctor searching 
+router.get("/api/doctors", searchDoctorController);
+
+
 
 
 

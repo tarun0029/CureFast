@@ -20,31 +20,31 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   {
     key: "Appointments",
     label: "Appointments",
-    path: "/doctor/Appointments",
+    path: "/doctor/appointments",
     icon: <HiCalendar />,
   },
   {
     key: "MyPatient",
     label: "My Patients",
-    path: "/mypatient",
+    path: "/doctor/mypatient",
     icon: <HiIdentification />,
   },
   {
     key: "ScheduleTiming",
     label: "Schedule Timings",
-    path: "/scheduletiming",
+    path: "/doctor/scheduletiming",
     icon: <HiClock />,
   },
   {
     key: "Reviews",
     label: "Reviews",
-    path: "/reviews",
+    path: "/doctor/reviews",
     icon: <HiPencilAlt />,
   },
   {
     key: "messages",
     label: "Messages",
-    path: "/messages",
+    path: "/doctor/messages",
     icon: <HiMail />,
   },
 ];
@@ -59,13 +59,13 @@ export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
   {
     key: "changepassword",
     label: "Change Password",
-    path: "/changepassword",
+    path: "/doctor/changepassword",
     icon: <BiSolidLockAlt />,
   },
   {
     key: "support",
     label: "Help & Support",
-    path: "/support",
+    path: "/doctor/support",
     icon: <HiOutlineQuestionMarkCircle />,
   },
 ];

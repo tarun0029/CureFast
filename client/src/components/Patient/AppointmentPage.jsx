@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setDoctorList } from "../../redux/features/doctorListSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 function AppointmentPage() {
   const navigate = useNavigate();
-  const [doctors, setDoctors] = useState([]);
+  const dispatch = useDispatch();
+  const { doctorList } = useSelector((state) => state.doctorList);
+  //const [doctors, setDoctors] = useState([]);
 
 
   const getAllDoctorData = async () => {
@@ -20,7 +24,10 @@ function AppointmentPage() {
         }
       );
       if (res.data.success) {
-        setDoctors(res.data.data);
+      //  setDoctors(res.data.data);
+        dispatch(setDoctorList(res.data.data));
+       // console.log(doctorList);
+        //setDoctors(doctorList);
       }
     } catch (error) {
       console.log(error);
@@ -35,11 +42,13 @@ function AppointmentPage() {
     navigate(`/viewdoctorprofile/${_id}`);
   };
 
+
+
   const handleBookAppointment = (_id) => navigate(`/bookappointment/${_id}`);
 
   return (
     <div>
-      {doctors.map((Doctordata, index) => (
+      {doctorList?.map((Doctordata, index) => (
         <div className="p-3">
           <div className="flex slate-red-200 border  mx-4 px-4 py-4 shadow-xl hover:scale-105 duration-[400ms]">
             <div className="mb-4 md:mr-6 md:mb-0">

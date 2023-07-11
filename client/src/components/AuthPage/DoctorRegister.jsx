@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
+import NavBar from "../NavBar/NavBar";
 
 export default function DoctorRegister() {
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ export default function DoctorRegister() {
 
   return (
     <>
+      <NavBar/>
       <div>
         <section className="bg-gray-50 dark:bg-gray-900">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

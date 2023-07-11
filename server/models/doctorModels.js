@@ -18,7 +18,23 @@ const doctorSchema = mongoose.Schema({
     required: [true, "password is require"],
   },
   dateOfBirth: {
-    type: Date,
+    type: String,
+    default: "",
+  },
+  gender: {
+    type: String,
+    default: "",
+  },
+  biography: {
+    type: String,
+    default: "",
+  },
+  consultancyFees: {
+    type: String,
+    default: "",
+  },
+  experience: {
+    type: String,
     default: "",
   },
   specialization: {

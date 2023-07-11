@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { message } from "antd";
+import NavBar from "../NavBar/NavBar";
 // import NavBar from '../NavBar/NavBar'
 
 export default function DoctorLogin() {
@@ -45,8 +46,14 @@ export default function DoctorLogin() {
   };
 
   return (
-    <>
-      <section className="bg-gray-50 dark:bg-gray-900">
+    <div className="h-screen">
+      <NavBar/>
+      <div
+        className="bg-slate-50 w-full dark:bg-gray-900 bg-cover bg-no-repeat "
+        style={{
+          backgroundImage: 'url("./images/Common/bg.jpg")',
+        }}
+      >
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
@@ -59,13 +66,13 @@ export default function DoctorLogin() {
             />
             Doctor Login
           </a>
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+          <div className="w-full bg-opacity-30 bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8 backdrop-blur-xl">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
               <form
-                className="space-y-4 md:space-y-6"
+                className="space-y-4 md:space-y-6 backdrop-blur-md"
                 action="#"
                 onSubmit={handleSubmit}
               >
@@ -80,7 +87,7 @@ export default function DoctorLogin() {
                     type="email"
                     name="email"
                     id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 bg-opacity-50 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="xyz@xyz.com"
                     required
                     value={formData.email}
@@ -99,7 +106,7 @@ export default function DoctorLogin() {
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 bg-opacity-50 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                     value={formData.password}
                     onChange={handleOnChange}
@@ -151,7 +158,7 @@ export default function DoctorLogin() {
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

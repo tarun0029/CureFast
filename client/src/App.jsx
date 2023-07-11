@@ -6,21 +6,27 @@ import PatientLogin from "../src/components/AuthPage/PatientLogin";
 import PatientRegister from "../src/components/AuthPage/PatientRegister";
 import DoctorLogin from "../src/components/AuthPage/DoctorLogin";
 import DoctorRegister from "../src/components/AuthPage/DoctorRegister";
-import doctorLayout from "../src/components/Doctor/shared/Layout";
-import doctorDashboard from "../src/components/Doctor/Dashboard";
-import doctorAppointments from "../src/components/Doctor/Appointments";
-import doctorProfileSetting from "../src/components/Doctor/ProfileSetting";
-import patientLayout from ""
-
+import Layout from "../src/components/Doctor/shared/Layout";
+import Dashboard from "../src/components/Doctor/Dashboard";
+import Appointments from "../src/components/Doctor/Appointments";
+import ProfileSetting from "../src/components/Doctor/ProfileSetting";
+import PatientProfileSetting from "../src/components/Patient/patientProfileSetting";
+import PatientAppointments from "../src/components/Patient/patientAppointments";
+import PatientDashboard from "../src/components/Patient/patientDashboard";
+import PatientLayout from "../src/components/Patient/shared/patientLayout";
+import AppointmentPage from "../src/components/Patient/AppointmentPage";
+import ProtectedRouteDoctor from "./components/ProtectedRouteDoctor";
+import ProtectedRoutePatient from "./components/ProtectedRoutePatient";
 import PublicRoute from "./components/PublicRoute";
-import ProtectedRouteDoctor from "./components/ProtectedRouteDoctor"
-import ProtectedRoutePatient from "./components/ProtectedRoutePatient"
+import ViewDoctorProfile from "./components/Patient/ViewDoctorProfile";
+import BookAppointment from "./components/Patient/BookAppointment";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/team" element={<Team />} />
+      <Route path="/viewdoctorprofile/:id" element={<ViewDoctorProfile />} />
       <Route
         path="/patient_login"
         element={
@@ -86,11 +92,12 @@ function App() {
           }
         />
       </Route>
+
       <Route
         path="/patient/"
         element={
           <ProtectedRoutePatient>
-            <Layout />
+            <PatientLayout />
           </ProtectedRoutePatient>
         }
       >
@@ -98,7 +105,7 @@ function App() {
           path="appointments"
           element={
             <ProtectedRoutePatient>
-              <Appointments />
+              <PatientAppointments />
             </ProtectedRoutePatient>
           }
         />
@@ -106,7 +113,15 @@ function App() {
           path="profilesetting"
           element={
             <ProtectedRoutePatient>
-              <ProfileSetting />
+              <PatientProfileSetting />
+            </ProtectedRoutePatient>
+          }
+        />
+        <Route
+          path="appointmentpage"
+          element={
+            <ProtectedRoutePatient>
+              <AppointmentPage />
             </ProtectedRoutePatient>
           }
         />
@@ -114,11 +129,19 @@ function App() {
           path="dashboard"
           element={
             <ProtectedRoutePatient>
-              <Dashboard />
+              <PatientDashboard />
             </ProtectedRoutePatient>
           }
         />
       </Route>
+      <Route
+          path="bookappointment/:id"
+          element={
+            <ProtectedRoutePatient>
+              <BookAppointment />
+            </ProtectedRoutePatient>
+          }
+        />
     </Routes>
   );
 }

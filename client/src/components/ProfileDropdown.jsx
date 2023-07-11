@@ -3,14 +3,16 @@ import { Menu, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { message } from "antd";
+import { useSelector } from "react-redux";
 
 export default function ProfileDropdown() {
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
   // logout funtion
   const handleLogout = () => {
     localStorage.clear();
     message.success("Logout Successfully");
-    navigate("/");
+    navigate(`${user?.isDoctor ? "/doctor_login" : "/patient_login"}`);
   };
 
   return (
@@ -43,7 +45,15 @@ export default function ProfileDropdown() {
             <Menu.Item>
               {({ active }) => (
                 <div
-                  onClick={() => navigate("/doctor/dashboard")}
+                  onClick={() =>
+                    navigate(
+                      `${
+                        user?.isDoctor
+                          ? "/doctor/dashboard"
+                          : "/patient/dashboard"
+                      }`
+                    )
+                  }
                   className={classNames(
                     active && "bg-gray-100",
                     "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
@@ -56,7 +66,15 @@ export default function ProfileDropdown() {
             <Menu.Item>
               {({ active }) => (
                 <div
-                  onClick={() => navigate("/doctor/profilesetting")}
+                  onClick={() =>
+                    navigate(
+                      `${
+                        user?.isDoctor
+                          ? "/doctor/profilesetting"
+                          : "/patient/profilesetting"
+                      }`
+                    )
+                  }
                   className={classNames(
                     active && "bg-gray-100",
                     "active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200"
