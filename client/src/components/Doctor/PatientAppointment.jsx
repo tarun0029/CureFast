@@ -99,7 +99,7 @@ export default function PatientAppointment() {
                       </button>
                       <button
                         onClick={() =>
-                          handleStatus(patient?.appointmentId, "accpet")
+                          handleStatus(patient?.appointmentId, "accept")
                         }
                         className="flex text-[#26af48] bg-[#0fb76b1f] py-2 px-4 rounded"
                       >

@@ -20,6 +20,9 @@ import ProtectedRoutePatient from "./components/ProtectedRoutePatient";
 import PublicRoute from "./components/PublicRoute";
 import ViewDoctorProfile from "./components/Patient/ViewDoctorProfile";
 import BookAppointment from "./components/Patient/BookAppointment";
+import PatientMessage from "./components/Patient/PatientMessage";
+import DoctorMessage from "./components/Doctor/DoctorMessage";
+
 
 function App() {
   return (
@@ -91,7 +94,16 @@ function App() {
             </ProtectedRouteDoctor>
           }
         />
+
       </Route>
+      <Route
+          path="/doctor/messages/:id"
+          element={
+            <ProtectedRouteDoctor>
+              <DoctorMessage />
+            </ProtectedRouteDoctor>
+          }
+        />
 
       <Route
         path="/patient/"
@@ -133,7 +145,24 @@ function App() {
             </ProtectedRoutePatient>
           }
         />
+        <Route
+          path="messages"
+          element={
+            <ProtectedRoutePatient>
+              <PatientMessage />
+            </ProtectedRoutePatient>
+          }
+        />
+
       </Route>
+      <Route
+          path="/patient/messages/:id"
+          element={
+            <ProtectedRoutePatient>
+              <PatientMessage />
+            </ProtectedRoutePatient>
+          }
+        />
       <Route
           path="bookappointment/:id"
           element={

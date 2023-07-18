@@ -18,7 +18,6 @@ export default function PatientHeader() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [searchQuery, setSearchQuery] = useState("");
-  const [doctors, setDoctors] = useState([]);
 
   const handleOnClick = () => {
     navigate("/");
@@ -37,42 +36,34 @@ export default function PatientHeader() {
         }
       );
       if (res.data.success) {
-      //  setDoctors(res.data.data);
         dispatch(setDoctorList(res.data.data));
-       // console.log(doctorList);
-        //setDoctors(doctorList);
       }
     } catch (error) {
       console.log(error);
     }
   };
   const handleOnChange = (e) => {
-    if(e.target.value==='')
-    {
+    if (e.target.value === "") {
       getAllDoctorData();
     }
     setSearchQuery(e.target.value);
-
   };
-   
-  
-  const handleSearch = (event) => {
-    if (event.key === 'Enter') {
-    axios
-      .get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/doctors?searchQuery=${searchQuery}`
-      )
-      .then((response) => {
-       // setDoctors(response.data);
-         dispatch(setDoctorList(response.data));
-      })
-      .catch((error) => {
-        console.error("Failed to fetch search results:", error);
-      });
 
+  const handleSearch = (event) => {
+    if (event.key === "Enter") {
+      axios
+        .get(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/doctors?searchQuery=${searchQuery}`
+        )
+        .then((response) => {
+          // setDoctors(response.data);
+          dispatch(setDoctorList(response.data));
+        })
+        .catch((error) => {
+          console.error("Failed to fetch search results:", error);
+        });
     }
   };
-
 
   return (
     <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200 justify-between">
@@ -176,7 +167,17 @@ export default function PatientHeader() {
                           key={index}
                           className="flex items-center justify-between py-1 border-b border-gray-200 hover:bg-gray-100"
                         >
-                          <span>{notification?.message}</span>
+                          {notification?.status == "accept" ? (
+                            <span>
+                              Great news! Dr. {notification?.doctorName}{" "}
+                              has accepted your appointment request
+                            </span>
+                          ) : (
+                            <span>
+                              We regret to inform you that your appointment with
+                              Dr. {notification?.doctorName} has been canceled.
+                            </span>
+                          )}
                         </div>
                       ))}
                     </div>

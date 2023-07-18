@@ -3,6 +3,7 @@ const doctorModel = require("../models/doctorModels");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const appointmentModel = require("../models/appointmentModel");
+const chatModel  = require("../models/chatModel")
 //const jwt = require("jsonwebtoken");
 
 //register callback
@@ -98,17 +99,17 @@ const getPatientInfoController = async (req, res) => {
   }
 };
 
-// update doc profile
+// update patient profile
 const updateProfileController = async (req, res) => {
   try {
-    const doctor = await patientModel.findByIdAndUpdate(
+    const patient = await patientModel.findByIdAndUpdate(
       { _id: req.body.userId },
       req.body
     );
     res.status(201).send({
       success: true,
       message: "patient Profile Updated",
-      data: doctor,
+      data: patient,
     });
   } catch (error) {
     console.log(error);
@@ -244,6 +245,8 @@ const myAppointmentController = async (req, res) => {
     });
   }
 };
+
+
 
 module.exports = {
   patientRegisterController,

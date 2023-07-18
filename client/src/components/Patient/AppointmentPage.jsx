@@ -46,6 +46,13 @@ function AppointmentPage() {
 
   const handleBookAppointment = (_id) => navigate(`/bookappointment/${_id}`);
 
+
+  const handleMessage = (_id) => {
+     navigate(`/patient/messages/${_id}`);
+  }
+
+
+
   return (
     <div>
       {doctorList?.map((Doctordata, index) => (
@@ -88,6 +95,12 @@ function AppointmentPage() {
                     className="w-full rounded-lg border-2 border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
                   >
                     Book Appointment
+                  </button>
+                  <button
+                    onClick={() => handleMessage(Doctordata?._id)}
+                    className="w-full rounded-lg border-2 border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
+                  >
+                    Message
                   </button>
                 </div>
               </div>
