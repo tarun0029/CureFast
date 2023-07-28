@@ -41,12 +41,12 @@ export const PATIENT_DASHBOARD_SIDEBAR_LINKS = [
     path: "/patient/reviews",
     icon: <HiPencilAlt />,
   },
-  {
-    key: "messages",
-    label: "Messages",
-    path: "/patient/messages",
-    icon: <HiMail />,
-  },
+  // {
+  //   key: "messages",
+  //   label: "Messages",
+  //   path: "/patient/messages",
+  //   icon: <HiMail />,
+  // },
 ];
 
 export const PATIENT_DASHBOARD_SIDEBAR_BOTTOM_LINKS = [

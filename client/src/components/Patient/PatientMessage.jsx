@@ -85,12 +85,11 @@ export default function PatientMessage() {
     }
   };
 
-  const handleKeyPress = (event) => {
+const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       sendMessage();
     }
   };
-
 
   useEffect(() => {
     socket.on("receive_message", (data) => {

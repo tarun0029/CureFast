@@ -49,7 +49,7 @@ export default function DoctorAppointment() {
             </tr>
           </thead>
           <tbody>
-            {doctors.map(
+            {doctors?.map(
               (doctor) =>
                 doctor?.status === "pending" && (
                   <tr key={doctor?.appointmentId}>

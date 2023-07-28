@@ -184,7 +184,7 @@ const appointmentStatusController = async (req, res) => {
     notification.push({
       type: "status-updated",
       doctorName: `${doctor.firstName} ${doctor.lastName}`,
-      status : status
+      status: status,
     });
     await patient.save();
     res.status(200).send({
@@ -200,7 +200,6 @@ const appointmentStatusController = async (req, res) => {
     });
   }
 };
-
 module.exports = {
   doctorRegisterController,
   doctorLoginController,

@@ -22,7 +22,8 @@ import ViewDoctorProfile from "./components/Patient/ViewDoctorProfile";
 import BookAppointment from "./components/Patient/BookAppointment";
 import PatientMessage from "./components/Patient/PatientMessage";
 import DoctorMessage from "./components/Doctor/DoctorMessage";
-
+import DoctorVideoCall from "./components/Doctor/DoctorVideoCall";
+import PatientVideoCall from "./components/Patient/PatientVideoCall";
 
 function App() {
   return (
@@ -97,13 +98,21 @@ function App() {
 
       </Route>
       <Route
-          path="/doctor/messages/:id"
-          element={
-            <ProtectedRouteDoctor>
-              <DoctorMessage />
-            </ProtectedRouteDoctor>
-          }
-        />
+        path="/doctor/messages/:id"
+        element={
+          <ProtectedRouteDoctor>
+            <DoctorMessage />
+          </ProtectedRouteDoctor>
+        }
+      />
+      <Route
+        path="/doctor/video-call/:id"
+        element={
+          <ProtectedRouteDoctor>
+            <DoctorVideoCall />
+          </ProtectedRouteDoctor>
+        }
+      />
 
       <Route
         path="/patient/"
@@ -156,21 +165,29 @@ function App() {
 
       </Route>
       <Route
-          path="/patient/messages/:id"
-          element={
-            <ProtectedRoutePatient>
-              <PatientMessage />
-            </ProtectedRoutePatient>
-          }
-        />
+        path="/patient/messages/:id"
+        element={
+          <ProtectedRoutePatient>
+            <PatientMessage />
+          </ProtectedRoutePatient>
+        }
+      />
       <Route
-          path="bookappointment/:id"
-          element={
-            <ProtectedRoutePatient>
-              <BookAppointment />
-            </ProtectedRoutePatient>
-          }
-        />
+        path="/patient/video-call/:id"
+        element={
+          <ProtectedRoutePatient>
+            <PatientVideoCall />
+          </ProtectedRoutePatient>
+        }
+      />
+      <Route
+        path="bookappointment/:id"
+        element={
+          <ProtectedRoutePatient>
+            <BookAppointment />
+          </ProtectedRoutePatient>
+        }
+      />
     </Routes>
   );
 }

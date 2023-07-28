@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { io } from "socket.io-client";
 import Sidebar from "./shared/Sidebar";
 import axios from "axios";
-import { io } from "socket.io-client";
-
-
-
 
 const socket = io.connect("http://localhost:5000");
 
@@ -16,12 +13,6 @@ export default function DoctorMessage() {
   const [chatId, setChatId] = useState(id + user._id);
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-
-  useEffect(() => {
-    if (chatId !== "") {
-      socket.emit("join_room", chatId);
-    }
-  }, []);
 
   const getAllChats = async () => {
     try {
@@ -48,8 +39,11 @@ export default function DoctorMessage() {
     getAllChats();
   }, [user]);
 
-
-
+  useEffect(() => {
+    if (chatId !== "") {
+      socket.emit("join_room", chatId);
+    }
+  }, []);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -68,7 +62,7 @@ export default function DoctorMessage() {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       sendMessage();
     }
   };
@@ -89,10 +83,7 @@ export default function DoctorMessage() {
             src="https://cdn.pixabay.com/photo/2018/01/15/07/51/woman-3083383__340.jpg"
             alt="username"
           />
-          <span class="block ml-2 font-bold text-gray-600">
-            {/* {doctor?.firstName} {doctor?.lastName} */}
-            Emma
-          </span>
+          <span class="block ml-2 font-bold text-gray-600">Emma</span>
           <span class="absolute w-3 h-3 bg-green-600 rounded-full left-10 top-3"></span>
         </div>
         <div className="flex-1 p-4 min-h-0 overflow-auto">

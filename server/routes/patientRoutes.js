@@ -11,7 +11,7 @@ const {
   searchDoctorController,
   myAppointmentController,
 } = require("../controllers/patientController.js");
-const {   getAllChatsController }  = require("../controllers/chatController.js")
+const { getAllChatsController } = require("../controllers/chatController.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
 //router object

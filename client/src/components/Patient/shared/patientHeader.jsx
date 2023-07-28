@@ -169,8 +169,8 @@ export default function PatientHeader() {
                         >
                           {notification?.status == "accept" ? (
                             <span>
-                              Great news! Dr. {notification?.doctorName}{" "}
-                              has accepted your appointment request
+                              Great news! Dr. {notification?.doctorName} has
+                              accepted your appointment request
                             </span>
                           ) : (
                             <span>
