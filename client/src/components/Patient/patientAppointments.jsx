@@ -35,7 +35,7 @@ export default function PatientAppointments() {
 
   return (
     <div>
-      {doctors.map(
+      {doctors?.map(
         (doctor) =>
           doctor?.status === "accept" && (
             <div className="p-3">

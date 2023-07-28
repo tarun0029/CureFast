@@ -12,7 +12,7 @@ import { BiSolidLockAlt } from "react-icons/bi";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
-    key: "dashboard",
+    key: "Dashboard",
     label: "Dashboard",
     path: "/doctor/dashboard",
     icon: <HiOutlineViewGrid />,

@@ -98,17 +98,17 @@ const getPatientInfoController = async (req, res) => {
   }
 };
 
-// update doc profile
+// update patient profile
 const updateProfileController = async (req, res) => {
   try {
-    const doctor = await patientModel.findByIdAndUpdate(
+    const patient = await patientModel.findByIdAndUpdate(
       { _id: req.body.userId },
       req.body
     );
     res.status(201).send({
       success: true,
       message: "patient Profile Updated",
-      data: doctor,
+      data: patient,
     });
   } catch (error) {
     console.log(error);

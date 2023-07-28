@@ -171,8 +171,7 @@ const getAllPatientsController = async (req, res) => {
   }
 };
 
-
-const acceptAppointmentController = async (req, res) => {
+const appointmentStatusController = async (req, res) => {
   try {
     const { appointmentId, status } = req.body;
     const appointment = await appointmentModel.findByIdAndUpdate(
@@ -180,16 +179,17 @@ const acceptAppointmentController = async (req, res) => {
       { status }
     );
     const patient = await patientModel.findOne({ _id: appointment.patientId });
+    const doctor = await doctorModel.findOne({ _id: appointment.doctorId });
     const notification = patient.notification;
     notification.push({
       type: "status-updated",
-      message: `your appointment has been updated ${status}`,
+      doctorName: `${doctor.firstName} ${doctor.lastName}`,
+      status: status,
     });
     await patient.save();
     res.status(200).send({
       success: true,
-      message: "Appointment Status Updated",
-      data:true,
+      message: `Appointment status has been updated`,
     });
   } catch (error) {
     console.log(error);
@@ -200,7 +200,6 @@ const acceptAppointmentController = async (req, res) => {
     });
   }
 };
-
 module.exports = {
   doctorRegisterController,
   doctorLoginController,
@@ -208,5 +207,5 @@ module.exports = {
   getDoctorInfoController,
   updateProfileController,
   getAllPatientsController,
-  acceptAppointmentController,
+  appointmentStatusController,
 };

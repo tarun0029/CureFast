@@ -3,10 +3,12 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { FaMapMarkerAlt, FaEnvelope, FaPhone } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Appointments() {
   const { user } = useSelector((state) => state.user);
   const [patients, setPatients] = useState([]);
+  const navigate = useNavigate();
 
   const getAllPatientData = async () => {
     try {
@@ -33,9 +35,17 @@ export default function Appointments() {
     getAllPatientData();
   }, [user]);
 
+  const handleMessage = (_id) => {
+    navigate(`/doctor/messages/${_id}`);
+  };
+
+  const handleVideoCall = (_id) => {
+    navigate(`/doctor/video-call/${_id}`);
+  };
+
   return (
     <div>
-      {patients.map(
+      {patients?.map(
         (patient) =>
           patient?.status === "accept" && (
             <div className="p-3">
@@ -77,6 +87,19 @@ export default function Appointments() {
                     </span>
                   </div>
                 </div>
+
+                <button
+                  onClick={() => handleMessage(patient?.patientDetails?._id)}
+                  className=" h-10  rounded-lg border-2  border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
+                >
+                  Message
+                </button>
+                <button
+                  onClick={() => handleVideoCall(patient?.patientDetails?._id)}
+                  className=" h-10  rounded-lg border-2  border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
+                >
+                  Video Call
+                </button>
               </div>
             </div>
           )

@@ -6,8 +6,9 @@ const {
   getDoctorInfoController,
   updateProfileController,
   getAllPatientsController,
-  acceptAppointmentController,
+  appointmentStatusController,
 } = require("../controllers/doctorController.js");
+const { getAllChatsController } = require("../controllers/chatController.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
 //router object
@@ -31,6 +32,13 @@ router.post("/doctor/profilesetting", authMiddlewares, updateProfileController);
 //GET ALL Patients
 router.post("/getAllPatients", authMiddlewares, getAllPatientsController);
 
-router.post("/accept-appointment",authMiddlewares,acceptAppointmentController);
+router.post(
+  "/appointment-status",
+  authMiddlewares,
+  appointmentStatusController
+);
+
+// get all chats
+router.post("/doctor/getAllChats", authMiddlewares, getAllChatsController);
 
 module.exports = router;

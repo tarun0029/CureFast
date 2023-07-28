@@ -90,7 +90,7 @@ export default function Header() {
               >
                 {user?.notification.length > 0 && (
                   <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-0.5 -right-0.5">
-                    {user.notification.length}
+                    {user?.notification.length}
                   </div>
                 )}
 
@@ -113,37 +113,37 @@ export default function Header() {
                     <div className="mt-2 py-1 text-sm ">
                       <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
                         <span>
-                          {user.notification?.length} new appointmnets.
+                          {user?.notification?.length} new appointmnets.
                         </span>
                       </div>
                       <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
                         <span>
-                          {user.notification?.length} new appointmnets.
+                          {user?.notification?.length} new appointmnets.
                         </span>
                       </div>
                       <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
                         <span>
-                          {user.notification?.length} new appointmnets.
+                          {user?.notification?.length} new appointmnets.
                         </span>
                       </div>
                       <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
                         <span>
-                          {user.notification?.length} new appointmnets.
+                          {user?.notification?.length} new appointmnets.
                         </span>
                       </div>
                       <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
                         <span>
-                          {user.notification?.length} new appointmnets.
+                          {user?.notification?.length} new appointmnets.
                         </span>
                       </div>
                       <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
                         <span>
-                          {user.notification?.length} new appointmnets.
+                          {user?.notification?.length} new appointmnets.
                         </span>
                       </div>
                       <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
                         <span>
-                          {user.notification?.length} new appointmnets.
+                          {user?.notification?.length} new appointmnets.
                         </span>
                       </div>
                     </div>

@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { setDoctorList } from "../../redux/features/doctorListSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-
 function AppointmentPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { doctorList } = useSelector((state) => state.doctorList);
   //const [doctors, setDoctors] = useState([]);
-
 
   const getAllDoctorData = async () => {
     try {
@@ -24,9 +22,9 @@ function AppointmentPage() {
         }
       );
       if (res.data.success) {
-      //  setDoctors(res.data.data);
+        //  setDoctors(res.data.data);
         dispatch(setDoctorList(res.data.data));
-       // console.log(doctorList);
+        // console.log(doctorList);
         //setDoctors(doctorList);
       }
     } catch (error) {
@@ -42,9 +40,15 @@ function AppointmentPage() {
     navigate(`/viewdoctorprofile/${_id}`);
   };
 
-
-
   const handleBookAppointment = (_id) => navigate(`/bookappointment/${_id}`);
+
+  const handleMessage = (_id) => {
+    navigate(`/patient/messages/${_id}`);
+  };
+
+  const handleVideoCall = (_id) => {
+    navigate(`/patient/video-call/${_id}`);
+  };
 
   return (
     <div>
@@ -60,34 +64,48 @@ function AppointmentPage() {
             </div>
             <div>
               <div key={index}>
-                <div className="text-lg text-black">{Doctordata.firstName}</div>
+                <div className="text-lg text-black">
+                  {Doctordata?.firstName}
+                </div>
                 <div className="flex space-x-3 text-[0.80rem] items-center">
                   <span className=" text-[#757575] font-light">
-                    {Doctordata.dataOfBirth}
+                    {Doctordata?.dataOfBirth}
                   </span>
                 </div>
                 <div className="flex space-x-3 text-[0.80rem] items-center">
                   <span className=" text-[#757575] font-light">
-                    {Doctordata.address}
+                    {Doctordata?.address}
                   </span>
                 </div>
                 <div className="flex space-x-3 text-[0.80rem] items-center">
                   <span className=" text-[#757575] font-light">
-                    {Doctordata.email}
+                    {Doctordata?.email}
                   </span>
                 </div>
                 <div className="flex space-x-2">
                   <button
-                    onClick={() => handleViewDoctorProfile(Doctordata._id)}
+                    onClick={() => handleViewDoctorProfile(Doctordata?._id)}
                     className="w-full rounded-lg border-2 bg-white px-4 py-2 font-medium text-gray-500"
                   >
                     View Profile
                   </button>
                   <button
-                    onClick={() => handleBookAppointment(Doctordata._id)}
+                    onClick={() => handleBookAppointment(Doctordata?._id)}
                     className="w-full rounded-lg border-2 border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
                   >
                     Book Appointment
+                  </button>
+                  <button
+                    onClick={() => handleMessage(Doctordata?._id)}
+                    className="w-full rounded-lg border-2 border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
+                  >
+                    Message
+                  </button>
+                  <button
+                    onClick={() => handleVideoCall(Doctordata?._id)}
+                    className="w-full rounded-lg border-2 border-transparent bg-blue-600 px-4 py-2 font-medium text-white"
+                  >
+                    Video Call
                   </button>
                 </div>
               </div>

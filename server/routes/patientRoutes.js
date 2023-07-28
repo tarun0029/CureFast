@@ -11,6 +11,7 @@ const {
   searchDoctorController,
   myAppointmentController,
 } = require("../controllers/patientController.js");
+const { getAllChatsController } = require("../controllers/chatController.js");
 const authMiddlewares = require("../middlewares/authMiddlewares.js");
 
 //router object
@@ -54,5 +55,8 @@ router.get("/api/doctors", searchDoctorController);
 
 //My Appointment
 router.post("/myappointment", authMiddlewares, myAppointmentController);
+
+// get all chats
+router.post("/patient/getAllChats", authMiddlewares, getAllChatsController);
 
 module.exports = router;

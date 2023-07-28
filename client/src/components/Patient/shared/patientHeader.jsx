@@ -18,7 +18,6 @@ export default function PatientHeader() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const [searchQuery, setSearchQuery] = useState("");
-  const [doctors, setDoctors] = useState([]);
 
   const handleOnClick = () => {
     navigate("/");
@@ -37,42 +36,34 @@ export default function PatientHeader() {
         }
       );
       if (res.data.success) {
-      //  setDoctors(res.data.data);
         dispatch(setDoctorList(res.data.data));
-       // console.log(doctorList);
-        //setDoctors(doctorList);
       }
     } catch (error) {
       console.log(error);
     }
   };
   const handleOnChange = (e) => {
-    if(e.target.value==='')
-    {
+    if (e.target.value === "") {
       getAllDoctorData();
     }
     setSearchQuery(e.target.value);
-
   };
-   
-  
-  const handleSearch = (event) => {
-    if (event.key === 'Enter') {
-    axios
-      .get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/doctors?searchQuery=${searchQuery}`
-      )
-      .then((response) => {
-       // setDoctors(response.data);
-         dispatch(setDoctorList(response.data));
-      })
-      .catch((error) => {
-        console.error("Failed to fetch search results:", error);
-      });
 
+  const handleSearch = (event) => {
+    if (event.key === "Enter") {
+      axios
+        .get(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/doctors?searchQuery=${searchQuery}`
+        )
+        .then((response) => {
+          // setDoctors(response.data);
+          dispatch(setDoctorList(response.data));
+        })
+        .catch((error) => {
+          console.error("Failed to fetch search results:", error);
+        });
     }
   };
-
 
   return (
     <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200 justify-between">
@@ -148,9 +139,9 @@ export default function PatientHeader() {
                   "group inline-flex items-center rounded-sm p-1.5 text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100"
                 )}
               >
-                {user?.notification.length > 0 && (
+                {user?.notification?.length > 0 && (
                   <div className="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 rounded-full -top-0.5 -right-0.5">
-                    {user.notification.length}
+                    {user?.notification?.length}
                   </div>
                 )}
 
@@ -171,41 +162,24 @@ export default function PatientHeader() {
                       Notifications
                     </strong>
                     <div className="mt-2 py-1 text-sm ">
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
-                      <div className=" py-2 text-sm items-center justify-between py-2 border-b border-gray-200 hover:bg-gray-100">
-                        <span>
-                          {user.notification?.length} new appointmnets.
-                        </span>
-                      </div>
+                      {user?.notification?.map((notification, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between py-1 border-b border-gray-200 hover:bg-gray-100"
+                        >
+                          {notification?.status == "accept" ? (
+                            <span>
+                              Great news! Dr. {notification?.doctorName} has
+                              accepted your appointment request
+                            </span>
+                          ) : (
+                            <span>
+                              We regret to inform you that your appointment with
+                              Dr. {notification?.doctorName} has been canceled.
+                            </span>
+                          )}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </Popover.Panel>
